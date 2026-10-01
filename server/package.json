@@ -1,0 +1,13 @@
+{
+  "name": "mystery-room-b4f-server",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "dotenv": "^18.0.4",
+    "express": "^4.19.2"
+  }
+}
