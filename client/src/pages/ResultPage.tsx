@@ -33,7 +33,7 @@ function MysteryResult({ id }: { id: string }) {
 
   return (
     <main className="result-page">
-      <Link to="/mysteries">Back to mysteries</Link>
+      <Link className="back-link" to="/mysteries">← Back to mysteries</Link>
       {isLoading && <p role="status">Loading result...</p>}
       {!isLoading && error && (
         <div role="alert">
@@ -45,8 +45,10 @@ function MysteryResult({ id }: { id: string }) {
       {!isLoading && !error && mystery && (
         mystery.solved ? (
           <>
-            <h1>Mystery solved!</h1>
-            <h2>{mystery.title}</h2>
+            <div className="solved-seal" aria-hidden="true">✓</div>
+            <p className="eyebrow">The investigation is complete</p>
+            <h1>Mystery <em>solved!</em></h1>
+            <h2 dir="auto">{mystery.title}</h2>
             <p>You opened the final lock and completed every stage.</p>
             <dl>
               <dt>Stages completed</dt>
@@ -54,13 +56,13 @@ function MysteryResult({ id }: { id: string }) {
               <dt>Hints used</dt>
               <dd>{mystery.hintsUsed}</dd>
             </dl>
-            <Link to={`/mysteries/${mystery.id}`}>View mystery details</Link>
+            <div className="result-actions"><Link className="button" to="/mysteries">Explore the archive <span aria-hidden="true">↗</span></Link><Link className="text-link" to={`/mysteries/${mystery.id}`}>View mystery details</Link></div>
           </>
         ) : (
           <>
             <h1>This mystery is not finished yet</h1>
             <p>Complete the remaining stages to see your result.</p>
-            <Link to={`/mysteries/${mystery.id}/play`}>Continue mystery</Link>
+            <Link className="button" to={`/mysteries/${mystery.id}/play`}>Continue mystery</Link>
           </>
         )
       )}

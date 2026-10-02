@@ -441,7 +441,8 @@ Example response:
 * Uses English interface labels and component-local state
 * Integrates the existing backend API and server-owned game progress
 * Coordinates with the API, reusable component, routing, and styling owners
-* Does not own CSS, Theme Context, Language Context, or Redux setup in this scope
+* Includes the subsequently requested case-archive styling in `client/src/index.css`
+* Does not include Theme Context, Language Context, or Redux setup
 * See [Molham's page implementation and verification guide](docs/MOLHAM-PAGES.md)
 
 The current four-page implementation uses flat `src/api.ts` and `src/types.ts`

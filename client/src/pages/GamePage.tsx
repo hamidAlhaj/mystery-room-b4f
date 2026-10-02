@@ -13,6 +13,7 @@ function GameSession({ id }: { id: string }) {
   const [hintsRemaining, setHintsRemaining] = useState(0);
   const [showClues, setShowClues] = useState(false);
   const [message, setMessage] = useState("");
+  const [feedbackTone, setFeedbackTone] = useState<"success" | "wrong">("success");
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [pending, setPending] = useState<"answer" | "hint" | null>(null);
@@ -70,6 +71,7 @@ function GameSession({ id }: { id: string }) {
       const response = await submitAnswer(id, selectedAnswer.trim());
       if (!active.current) return;
       setMessage(response.message);
+      setFeedbackTone(response.correct ? "success" : "wrong");
       if (response.correct) {
         // Fetch server state again; the answer response is not a complete mystery.
         setIsLoading(true);
@@ -113,9 +115,9 @@ function GameSession({ id }: { id: string }) {
 
   return (
     <main className="game-page">
-      <Link to={`/mysteries/${encodeURIComponent(id)}`}>Back to mystery details</Link>
+      <Link className="back-link" to={`/mysteries/${encodeURIComponent(id)}`}>← Back to mystery details</Link>
       {isLoading && <p role="status">Loading game...</p>}
-      {message && <p role="status">{message}</p>}
+      {message && <p className={`game-feedback feedback-${feedbackTone}`} role="status">{message}</p>}
       {!isLoading && error && (
         <div role="alert">
           <h1>Unable to continue</h1>
@@ -127,19 +129,21 @@ function GameSession({ id }: { id: string }) {
       )}
       {!isLoading && !error && mystery && (
         <>
-          <h1>{mystery.title}</h1>
-          <p>Stage {mystery.currentStage + 1} of {mystery.totalStages}</p>
+          <p className="eyebrow">Investigation in progress / File {String(mystery.id).padStart(3, "0")}</p>
+          <h1 dir="auto">{mystery.title}</h1>
+          <div className="stage-heading"><p>Stage {mystery.currentStage + 1} of {mystery.totalStages}</p><span className="muted">Follow the evidence</span></div>
           <progress
             aria-label="Completed stages"
             value={mystery.currentStage}
             max={mystery.totalStages}
           />
-          <form onSubmit={handleSubmit}>
+          <form className="answer-form" onSubmit={handleSubmit}>
             <fieldset disabled={pending !== null}>
-              <legend>{mystery.currentQuestion}</legend>
+              <legend dir="auto">{mystery.currentQuestion}</legend>
+              <div className="answer-options">
               {mystery.currentOptions.length > 0 ? (
-                mystery.currentOptions.map((option) => (
-                  <label key={option}>
+                mystery.currentOptions.map((option, index) => (
+                  <label className={`answer-option ${selectedAnswer === option ? "is-selected" : ""}`} key={option}>
                     <input
                       type="radio"
                       name="answer"
@@ -147,11 +151,12 @@ function GameSession({ id }: { id: string }) {
                       checked={selectedAnswer === option}
                       onChange={() => setSelectedAnswer(option)}
                     />
-                    {option}
+                    <span className="option-letter" aria-hidden="true">{String.fromCharCode(65 + index)}</span>
+                    <span>{option}</span>
                   </label>
                 ))
               ) : (
-                <label>
+                <label className="text-answer">
                   Your answer
                   <input
                     value={selectedAnswer}
@@ -160,26 +165,28 @@ function GameSession({ id }: { id: string }) {
                   />
                 </label>
               )}
+              </div>
               <button type="submit" disabled={!selectedAnswer.trim()}>
                 {pending === "answer" ? "Submitting..." : "Submit answer"}
               </button>
             </fieldset>
           </form>
-          <section aria-label="Hints">
-            <p>Hints remaining: {hintsRemaining}</p>
-            <button onClick={handleHint} disabled={pending !== null || hintsRemaining === 0}>
+          <section className="hint-panel" aria-label="Hints">
+            <div><p className="eyebrow">A different perspective</p><p>Hints remaining: {hintsRemaining}</p></div>
+            <button className="button-secondary" onClick={handleHint} disabled={pending !== null || hintsRemaining === 0}>
               {pending === "hint" ? "Loading hint..." : "Request hint"}
             </button>
-            {hint && <p role="status">{hint}</p>}
+            {hint && <p className="hint-text" dir="auto" role="status">{hint}</p>}
           </section>
-          <section aria-label="Clues">
-            <button onClick={() => setShowClues(!showClues)} aria-expanded={showClues} aria-controls="game-clues">
+          <section className="clue-panel" aria-label="Clues">
+            <button className="clue-toggle" onClick={() => setShowClues(!showClues)} aria-expanded={showClues} aria-controls="game-clues">
               {showClues ? "Hide clues" : "Show clues"}
+              <span aria-hidden="true">{showClues ? "−" : "+"}</span>
             </button>
             <div id="game-clues" hidden={!showClues}>
               {clues.length === 0 ? <p>No clues are available.</p> : (
                 <ul>
-                  {clues.map((clue) => <li key={clue.stage}>Stage {clue.stage + 1}: {clue.text}</li>)}
+                  {clues.map((clue) => <li key={clue.stage}><span className="eyebrow">Evidence / Stage {clue.stage + 1}</span><p dir="auto">{clue.text}</p></li>)}
                 </ul>
               )}
             </div>

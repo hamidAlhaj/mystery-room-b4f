@@ -4,7 +4,8 @@
 
 The owner's updated assignment supersedes the Context/Redux assignment in the
 frontend division PDF and the old README. Molham owns four pages, with English UI
-labels. Styling belongs to another teammate. No CSS or backend files are changed.
+labels. The subsequent styling request authorizes presentation changes to these
+pages and the shared app shell. Backend files remain unchanged.
 
 ## Files and routes
 
@@ -31,7 +32,12 @@ semantic HTML and plain controls. Teammates can replace those sections with
 reusable components while retaining the page's state and event handlers.
 
 Root class names are `mysteries-page`, `mystery-details-page`, `game-page`, and
-`result-page`; no style rules or inline styles are introduced.
+`result-page`. Ordinary CSS in `client/src/index.css` follows the B4F Hub approach:
+descriptive classes, shared variables, responsive layouts, and no styling library
+or inline styles. The original case-archive theme uses dark teal, brass accents,
+serif headings, a CSS door illustration, and semantic answer/evidence controls.
+The shared header provides an accessible How to play disclosure. Keyboard focus,
+a skip link, reduced-motion preferences, and mobile layouts are supported.
 
 ## API contract
 
@@ -127,7 +133,8 @@ There is no existing automated test framework or test suite in this project.
 ## Definition of done
 
 The four routes compile and provide real API-driven behavior with recovery paths.
-No CSS changes, new dependencies, or backend modifications are included.
+No new dependencies or backend modifications are included. Styling is included
+under the subsequent explicit styling request.
 The full English story and final reveal are pending the content/backend handoff.
 
 ## Verification performed
@@ -144,5 +151,9 @@ The full English story and final reveal are pending the content/backend handoff.
 - Simulated an accepted answer whose response was lost: the recovery GET loaded
   the next stage without sending the answer twice.
 - No browser page errors were reported during those checks.
-- Multi-mystery content, final narrative reveal, and styling remain unverified
-  because those deliverables are not present in this checkout.
+- Styled screens were visually inspected on desktop and mobile. Layout checks at
+  390px and 320px found no horizontal overflow in the list, details, results, and
+  missing-ID views. The help disclosure stays within the viewport. The complete
+  game flow still passes with the styled controls.
+- Multi-mystery content and final narrative reveal remain unverified because
+  those deliverables are not present in this checkout.

@@ -33,7 +33,7 @@ function MysteryDetails({ id }: { id: string }) {
 
   return (
     <main className="mystery-details-page">
-      <Link to="/mysteries">Back to mysteries</Link>
+      <Link className="back-link" to="/mysteries">← Back to mysteries</Link>
       {isLoading && <p role="status">Loading mystery...</p>}
       {!isLoading && error && (
         <div role="alert">
@@ -44,16 +44,16 @@ function MysteryDetails({ id }: { id: string }) {
       )}
       {!isLoading && !error && mystery && (
         <>
-          <h1>{mystery.title}</h1>
-          <p>{mystery.intro}</p>
-          <p>Total stages: {mystery.totalStages}</p>
-          <p>Hints used: {mystery.hintsUsed}</p>
+          <p className="eyebrow">Case file / {String(mystery.id).padStart(3, "0")}</p>
+          <h1 dir="auto">{mystery.title}</h1>
+          <div className="story-panel"><span className="eyebrow">The story so far</span><p dir="auto">{mystery.intro}</p></div>
+          <div className="case-facts"><p><span>Total stages</span><strong>{mystery.totalStages}</strong></p><p><span>Hints used</span><strong>{mystery.hintsUsed}</strong></p><p><span>Case status</span><strong>{mystery.solved ? "Closed" : "Open"}</strong></p></div>
           {mystery.solved ? (
-            <Link to={`/result/${mystery.id}`}>View result</Link>
+            <Link className="button" to={`/result/${mystery.id}`}>View result <span aria-hidden="true">↗</span></Link>
           ) : (
             <>
-              <p>Current stage: {mystery.currentStage + 1} of {mystery.totalStages}</p>
-              <Link to={`/mysteries/${mystery.id}/play`}>
+              <p className="muted">Current stage: {mystery.currentStage + 1} of {mystery.totalStages}. Your investigation begins with the evidence.</p>
+              <Link className="button" to={`/mysteries/${mystery.id}/play`}>
                 {mystery.currentStage === 0 ? "Start mystery" : "Continue mystery"}
               </Link>
             </>
