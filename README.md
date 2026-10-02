@@ -395,7 +395,7 @@ Example response:
 | **Ali Mikdad**      | Backend + Testing                                  |
 | **Shiam Ezzo**      | Frontend — Pages + Router + Navigation             |
 | **Hassan Alloush**  | Frontend — API Layer + Types + Loading/Error       |
-| **Mulham Al Kasir** | Frontend — State + Context + GamePage Coordination |
+| **Mulham Al Kasir** | Frontend — Mystery List, Details, Game, and Result Pages |
 | **Adham Albasha**   | Frontend — Game Components + Result UI             |
 
 ---
@@ -419,9 +419,9 @@ Example response:
 
 ## Shiam Ezzo — Pages + Router + Navigation
 
-* Owns `client/src/pages/`
+* Owns the remaining pages outside Molham's four-page scope
 * Owns `client/src/router/`
-* Builds all page components
+* Builds Home, About, and Not Found pages
 * Implements `AppRouter.tsx` with dynamic routes
 * Builds Navbar, Header, and Footer
 * Ensures real navigation using `Link` / `NavLink`
@@ -435,14 +435,22 @@ Example response:
 * Defines TypeScript interfaces
 * Builds Loading, Error, and Empty states
 
-## Mulham Al Kasir — State + GamePage Coordination
+## Mulham (Molham) Al Kasir — Mystery Pages
 
-* Owns `client/src/context/`
-* Owns `client/src/store/`
-* Builds `ThemeContext` and shared state
-* Owns `GamePage.tsx`
-* Coordinates API, state, and game components
-* Decides when Redux is genuinely needed
+* Owns `MysteriesPage.tsx`, `MysteryDetailsPage.tsx`, `GamePage.tsx`, and `ResultPage.tsx`
+* Uses English interface labels and component-local state
+* Integrates the existing backend API and server-owned game progress
+* Coordinates with the API, reusable component, routing, and styling owners
+* Does not own CSS, Theme Context, Language Context, or Redux setup in this scope
+* See [Molham's page implementation and verification guide](docs/MOLHAM-PAGES.md)
+
+The current four-page implementation uses flat `src/api.ts` and `src/types.ts`
+modules, following B4F Hub. These previously empty files contain the minimum API
+contracts needed by the pages. Routes are wired in `App.tsx` until integration with
+the team's router. `/` temporarily displays the mystery list. The structure above
+describes the broader team plan, not a claim that every listed module is implemented.
+Backend puzzle text is still Arabic; English content and the final story reveal
+remain dependencies for the backend/content owners.
 
 ## Adham Albasha — Game Components + Result UI
 
@@ -546,7 +554,7 @@ To reduce conflicts, the recommended merge order is:
 
 1. **Hassan** — API + Types
 2. **Adham** — Game Components
-3. **Mulham** — GamePage + State
+3. **Mulham** — Mystery List + Details + Game + Result Pages
 4. **Shiam** — Router + Pages
 5. **Hamid** — Final Integration
 
