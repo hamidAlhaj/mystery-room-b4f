@@ -69,12 +69,14 @@ export function submitAnswer(req, res) {
   if (mystery.solved) {
     return res.status(409).json({ error: "This mystery is already solved." });
   }
-
-  const currentStage = mystery.stages[mystery.currentStage];
+const currentStage = mystery.stages[mystery.currentStage];
   const submitted = req.body.answer.trim().toLowerCase();
-  const correct = currentStage.answer.toLowerCase();
 
-  if (submitted !== correct) {
+  const isCorrect = Array.isArray(currentStage.answer)
+    ? currentStage.answer.map((a) => a.toLowerCase()).includes(submitted)
+    : submitted === currentStage.answer.toLowerCase();
+
+  if (!isCorrect) {
     return res.json({
       correct: false,
       message: "That does not match the evidence. Try again.",
