@@ -1,17 +1,28 @@
-interface MysteryCardProps {
+type MysteryCardProps = {
   title: string;
-  intro: string;
-  totalStages: number;
-  solved: boolean;
+  description: string;
+  difficulty: string;
+  duration: string;
+  stages: number;
+};
+function MysteryCard({
+  title,
+  description,
+  difficulty,
+  duration,
+  stages,
+}: MysteryCardProps) {
+  return (
+    <article className="mystery-card">
+      {" "}
+      <h2>{title}</h2> <p>{description}</p>{" "}
+      <div className="mystery-card-info">
+        {" "}
+        <span>{difficulty}</span> <span>{duration}</span>{" "}
+        <span>{stages} Stages</span>{" "}
+      </div>{" "}
+      <button type="button">Register</button>{" "}
+    </article>
+  );
 }
-function MysteryCard({ title, intro, totalStages, solved }: MysteryCardProps) {
-    return (
-      <div className={`mystery-card ${solved ? 'solved' : ''}`}>
-        <h2>{title}</h2>
-        <p>{intro}</p>
-        <p>Total Stages: {totalStages}</p>
-        {solved && <p className="solved-message">Solved!</p>}
-      </div>
-    );
-}
-export default MysteryCard; 
+export default MysteryCard;
