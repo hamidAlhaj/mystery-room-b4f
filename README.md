@@ -1,598 +1,185 @@
-# Mystery Room 
+# Mystery Room — The Case Archive
 
-> An interactive, browser-based mystery and escape-room experience built by **Team 4 — B4F Cohort 8, Salamiyah**.
+An interactive mystery game by Team 4, B4F Cohort 8, Salamiyah. Explore two Arabic stories through an English interface, inspect evidence, solve three stages, and uncover a story ending. React displays the experience; Express owns progress and validates every answer.
 
-A player opens the app, chooses a mystery, reads the situation, inspects clues, submits answers, and progresses toward a final reveal.
+## Run locally
 
-The **backend validates every answer and controls the game's progression**, while the frontend acts as a window into the story.
+Use Node.js 22 or newer and npm. Open two terminals from the repository root.
 
----
+**Backend**
 
-## Table of Contents
-
-* [About the Project](#about-the-project)
-* [Features](#features)
-* [Mysteries](#mysteries)
-* [Tech Stack](#tech-stack)
-* [Project Structure](#project-structure)
-* [Getting Started](#getting-started)
-* [API Overview](#api-overview)
-* [Team](#team)
-* [Roles & Responsibilities](#roles--responsibilities)
-* [Git Workflow](#git-workflow)
-* [Definition of Done](#definition-of-done)
-* [License](#license)
-
----
-
-## About the Project
-
-**Mystery Room** is an interactive mystery-solving experience designed to feel like a real game rather than a traditional dashboard or CRUD application.
-
-The project was built as a weekly mini-project for the **B4F React + Node Bootcamp — Cohort 8, Salamiyah**.
-
-It uses the technical stack taught throughout Sessions 01–06:
-
-* **React + React Router** for the frontend
-* **TypeScript** for type safety
-* **Redux Toolkit + Context API** for state management where genuinely needed
-* **Node.js + Express.js** for the backend
-* **In-memory state** with no database
-* **No authentication**
-
-### Backend Responsibilities
-
-The backend is responsible for:
-
-* Serving mystery data
-* Providing the current question and options
-* Validating submitted answers
-* Moving the player to the next stage
-* Detecting when a mystery is solved
-* Providing hints and clues
-* Managing the current game state
-* Returning meaningful HTTP status codes
-
----
-
-## Features
-
-* ✅ Two original mysteries with unique stories, characters, and clues
-* ✅ Multiple stages with progression logic
-* ✅ Multiple-choice and free-text answers
-* ✅ Hint system with a visible hints-remaining counter
-* ✅ Clue panels that reveal story details progressively
-* ✅ Real backend validation with proper HTTP status codes
-* ✅ Loading, error, and empty states
-* ✅ Final reveal screen for each mystery
-* ✅ Fully responsive UI
-* ✅ Centralized API layer with no `fetch` scattered across components
-
----
-
-##  Mysteries
-
-The app includes two original mysteries.
-
-### Mystery 1 — الغرفة المغلقة في سوق الحميدية
-
-**Difficulty:** Easy → Medium
-
-> In 1975, the merchant Abu Saleh sealed his room in Souq Al-Hamidiyah with a mysterious lock, leaving behind a message: whoever opens it must pass three locks. No one knows what he hid.
-
-**Stages:**
-
-1. Metal identification
-2. Number pattern
-3. Alternating sequence
-
-**Format:** Multiple-choice
-
-**Final Reveal:** A family secret about sacrifice.
-
----
-
-### Mystery 2 — Coming Soon
-
-**Difficulty:** Medium → Hard
-
-> A second mystery with its own original story, characters, and clues. It follows the same structure as Mystery 1 but introduces more challenging puzzles that require multi-step reasoning.
-
-**Stages:**
-
-1. Pattern recognition
-2. Logic and classification
-3. Final multi-step deduction
-
-**Format:** Multiple-choice + free-text answers
-
-**Goal:** Each stage builds on the previous one and leads to a meaningful final reveal.
-
-> **Note:** The story and clues of Mystery 2 are intentionally not revealed here. The mystery begins when you play it.
-
----
-
-# Tech Stack
-
-## Frontend
-
-| Technology          | Purpose                                      |
-| ------------------- | -------------------------------------------- |
-| **React 18**        | UI library                                   |
-| **TypeScript**      | Type safety                                  |
-| **Vite**            | Build tool and development server            |
-| **React Router v7** | Client-side routing                          |
-| **Redux Toolkit**   | Shared state where needed                    |
-| **Context API**     | Theme, notifications, and small shared state |
-| **Custom CSS**      | Styling and responsive design                |
-
-## Backend
-
-| Technology           | Purpose                    |
-| -------------------- | -------------------------- |
-| **Node.js**          | Runtime environment        |
-| **Express.js**       | HTTP server and API        |
-| **ES Modules**       | `import` / `export` syntax |
-| **express.Router()** | Route organization         |
-| **Controllers**      | Separation of concerns     |
-| **In-memory state**  | Runtime game state         |
-
-## Developer Tools
-
-* **VS Code** — Code editor
-* **Thunder Client / Postman** — API testing
-* **Git + GitHub** — Version control
-* **npm** — Package manager
-
----
-
-## Forbidden / Out of Scope
-
-The following technologies and patterns were intentionally not used according to the project specification:
-
-* Databases such as MongoDB, PostgreSQL, Prisma, or Mongoose
-* Authentication such as JWT, sessions, cookies, or password hashing
-* NestJS or Next.js
-* GraphQL
-* WebSockets
-* Redis
-* Redux async patterns such as `createAsyncThunk` or RTK Query
-* Validation libraries such as Zod, Joi, or express-validator
-* Docker or deployment tools
-
----
-
-# Project Structure
-
-```text
-mystery-room-b4f/
-│
-├── client/
-│   ├── src/
-│   │   ├── api/
-│   │   │   ├── client.ts
-│   │   │   └── mysteryApi.ts
-│   │   │
-│   │   ├── components/
-│   │   │   ├── Header.tsx
-│   │   │   ├── Navbar.tsx
-│   │   │   ├── Footer.tsx
-│   │   │   ├── MysteryCard.tsx
-│   │   │   ├── LoadingMessage.tsx
-│   │   │   ├── ErrorMessage.tsx
-│   │   │   ├── EmptyState.tsx
-│   │   │   │
-│   │   │   └── game/
-│   │   │       ├── StageHeader.tsx
-│   │   │       ├── StageQuestion.tsx
-│   │   │       ├── AnswerOptions.tsx
-│   │   │       ├── SubmitAnswerButton.tsx
-│   │   │       ├── HintButton.tsx
-│   │   │       ├── HintBox.tsx
-│   │   │       ├── CluePanel.tsx
-│   │   │       ├── StageProgress.tsx
-│   │   │       ├── GameStatus.tsx
-│   │   │       ├── SuccessMessage.tsx
-│   │   │       ├── WrongAnswerMessage.tsx
-│   │   │       └── ResultCard.tsx
-│   │   │
-│   │   ├── context/
-│   │   │   ├── ThemeContext.tsx
-│   │   │   └── NotificationContext.tsx
-│   │   │
-│   │   ├── pages/
-│   │   │   ├── HomePage.tsx
-│   │   │   ├── MysteriesPage.tsx
-│   │   │   ├── MysteryDetailsPage.tsx
-│   │   │   ├── GamePage.tsx
-│   │   │   ├── ResultPage.tsx
-│   │   │   ├── AboutPage.tsx
-│   │   │   └── NotFoundPage.tsx
-│   │   │
-│   │   ├── router/
-│   │   │   └── AppRouter.tsx
-│   │   │
-│   │   ├── store/
-│   │   │   ├── store.ts
-│   │   │   ├── hooks.ts
-│   │   │   ├── selectors.ts
-│   │   │   └── gameSlice.ts
-│   │   │
-│   │   ├── types/
-│   │   │   ├── mystery.ts
-│   │   │   ├── stage.ts
-│   │   │   ├── game.ts
-│   │   │   └── api.ts
-│   │   │
-│   │   ├── styles/
-│   │   │   ├── globals.css
-│   │   │   ├── variables.css
-│   │   │   ├── layout.css
-│   │   │   └── components.css
-│   │   │
-│   │   ├── App.tsx
-│   │   └── main.tsx
-│   │
-│   ├── index.html
-│   ├── package.json
-│   ├── tsconfig.json
-│   └── vite.config.ts
-│
-├── server/
-│   ├── controllers/
-│   │   └── mysteryController.js
-│   ├── data/
-│   │   └── mysteries.js
-│   ├── routes/
-│   │   └── mysteries.js
-│   ├── store.js
-│   ├── utils.js
-│   ├── index.js
-│   └── package.json
-│
-├── docs/
-│   ├── API_CONTRACT.md
-│   ├── FRONTEND_TASKS.md
-│   └── BACKEND_GUIDE.md
-│
-├── .gitignore
-└── README.md
-```
-
----
-
-# Getting Started
-
-## Prerequisites
-
-Make sure you have:
-
-* **Node.js v18 or higher**
-* **npm**
-* A modern browser such as Chrome, Firefox, or Edge
-
----
-
-## 1. Clone the Repository
-
-```bash
-git clone https://github.com/hamidAlhaj/mystery-room-b4f.git
-cd mystery-room-b4f
-```
-
----
-
-## 2. Start the Backend
-
-Open a terminal:
-
-```bash
+```powershell
 cd server
 npm install
 npm start
 ```
 
-The API will run at:
+**Frontend**
 
-```text
-http://localhost:3001
-```
-
-You should see:
-
-```text
-Mystery Room API running at http://localhost:3001
-```
-
----
-
-## 3. Start the Frontend
-
-Open a second terminal:
-
-```bash
+```powershell
 cd client
 npm install
 npm run dev
 ```
 
-The frontend will run at:
+Open the URL Vite prints (normally http://localhost:5173). The API listens on port 3001. The client proxies `/api` to that port. No database, credentials, or `.env` file is required. For reproducible installs use `npm ci` in each directory.
+
+If port 3001 is occupied, stop your previous development server in its terminal before starting a new one. Restarting the backend resets all progress. If you intentionally change `PORT`, also update the proxy in `client/vite.config.ts`. Run npm commands inside `client` or `server`, not the repository root.
+
+## Play
+
+1. Start at Home and select **Explore the mysteries**.
+2. Open a case, read its story, and select **Start mystery**.
+3. Reveal clues and choose or type an answer. Wrong guesses do not consume hints or advance the stage.
+4. Request a hint if needed. Each mystery has three hint requests total; requesting the same stage's hint again also consumes a request.
+5. Complete all three stages to read the final reveal. Completed cases remain marked solved while the backend is running.
+
+| Case | Story | Input |
+| --- | --- | --- |
+| The sealed room in Souq Al-Hamidiyah | Discover what Abu Saleh protected behind three locks | Multiple choice |
+| Facing the wizard Arcanus | Pass the castle guardian's tests and discover the purpose of the amulet | Arabic free text; several accepted variants |
+
+Stories, hints, clues, and endings are Arabic. Navigation, feedback, and documentation are English. There is no timer, loss counter, login, or individual player account.
+
+## Features and state ownership
+
+- Home, archive, details, game, results, and not-found screens with real Router navigation.
+- Server-owned progression, answer validation, three-hint limits, and endings disclosed only after completion.
+- Loading, error/retry, empty, wrong-answer, and success states.
+- Reusable typed cards, answer form, progress, hints, clues, and feedback components.
+- Keyboard controls, focus styles, skip link, Arabic text direction, responsive CSS, and reduced-motion support.
+- One API module; no fetch calls in UI components.
+- Local component state for forms and request status; URL for the selected case; one in-memory backend store for game state.
+
+**Progress is shared across all browsers connected to the same server process.** Refreshing keeps that server progress; restarting resets it. This is the intentional bootcamp model, not per-player persistence. Simultaneous players should use separate server instances for independent demonstrations.
+
+## Project layout
 
 ```text
-http://localhost:5173
+client/
+  src/
+    main.tsx                  # StrictMode and the single BrowserRouter
+    App.tsx                   # Layout and route table
+    api.ts                    # Named API helpers and error handling
+    types.ts                  # Public API interfaces (no answers)
+    index.css                 # Theme, layouts, responsiveness, focus styles
+    components/
+      Navbar.tsx, Footer.tsx
+      LoadingMessage.tsx, ErrorMessage.tsx, EmptyState.tsx
+      MysteryCard.tsx, ProgressBar.tsx
+      game/
+        StageHeader.tsx, StageQuestion.tsx, StageProgress.tsx
+        AnswerOptions.tsx, SubmitAnswerButton.tsx
+        HintButton.tsx, HintBox.tsx, CluePanel.tsx
+        GameStatus.tsx, SuccessMessage.tsx, WrongAnswerMessage.tsx
+        ResultCard.tsx
+    pages/
+      HomePage.tsx, MysteriesPage.tsx, MysteryDetailsPage.tsx
+      GamePage.tsx, ResultPage.tsx, NotFoundPage.tsx
+server/
+  index.js                    # Environment and listening port
+  app.js                      # Express setup, router, basic JSON errors
+  routes/mysteries.js          # Endpoint-to-controller mapping
+  controllers/mysteryController.js
+  data/mysteries.js            # Stories, stages, accepted answers, reveals
+  store.js                    # Single mutable runtime state owner
+  tests/mysteries.test.js      # Independent HTTP integration tests
+  utils.js                    # Unused delay helper retained from the starter
+docs/
+  CODE-WALKTHROUGH.md          # Team recap, request flow, demo, requirements
+  MOLHAM-PAGES.md              # Frontend integration notes
 ```
 
-Open that address in your browser.
+The client follows B4F Hub's flat API/types structure, named functions, typed props, relative imports, reusable components, and plain CSS. Redux/Context are not needed for the current ownership model. No new application dependency was added by the cleanup.
 
----
+## Routes
 
-# API Overview
+| URL | Screen |
+| --- | --- |
+| `/` | Home and instructions |
+| `/mysteries` | API-backed case archive |
+| `/mysteries/:id` | Story and progress |
+| `/mysteries/:id/play` | Current server-owned stage |
+| `/result/:id` | Ending if solved; Continue link otherwise |
+| Any unknown path | Not-found page |
 
-### Base URL
+## API contract
 
-```text
-http://localhost:3001
+Base: http://localhost:3001. Error responses use `{ "error": "Readable message" }`.
+
+| Method | Path | Behavior |
+| --- | --- | --- |
+| GET | `/api/mysteries` | Public collection |
+| GET | `/api/mysteries/:id` | Public mystery or 404 |
+| GET | `/api/mysteries/:id/clues` | All clues for that mystery or 404 |
+| POST | `/api/mysteries/:id/answers` | Accepts `{ "answer": "..." }`; wrong guess is 200 with `correct: false` |
+| PATCH | `/api/mysteries/:id/hint` | Consumes one hint request; returns hint and remaining count |
+
+Public mysteries include `id`, `slug`, `title`, `intro`, `totalStages`, `currentStage` (zero-based), `solved`, `hintsUsed`, `hintsRemaining`, `currentQuestion`, `currentOptions`, and `reveal` (null until solved). Solved cases expose no current question/options. Private stage definitions and accepted answers never leave the server.
+
+- **400:** missing, blank, wrong-typed, or over-200-character answer; malformed JSON.
+- **404:** unknown mystery or API route.
+- **409:** answering/requesting hints after completion, or requesting an exhausted hint budget.
+- **413:** JSON body exceeds 10 KB.
+- A wrong but well-formed guess is normal gameplay, not an HTTP validation error.
+
+## Check the project
+
+```powershell
+cd client
+npm run build
+npm run lint
+cd ../server
+npm test
 ```
 
-### Endpoints
+The Node test runner starts the actual Express app on an isolated temporary port. It checks both complete stories, every accepted free-text alias, reveal privacy, clues, malformed input, 400/404/409 handling, and independent hint budgets. No extra testing dependency is needed.
 
-| Method  | Endpoint                     | Purpose            | Success | Errors              |
-| ------- | ---------------------------- | ------------------ | ------- | ------------------- |
-| `GET`   | `/api/mysteries`             | List all mysteries | `200`   | —                   |
-| `GET`   | `/api/mysteries/:id`         | Get one mystery    | `200`   | `404`               |
-| `GET`   | `/api/mysteries/:id/clues`   | Get all clues      | `200`   | `404`               |
-| `POST`  | `/api/mysteries/:id/answers` | Submit an answer   | `200`   | `400`, `404`, `409` |
-| `PATCH` | `/api/mysteries/:id/hint`    | Request a hint     | `200`   | `404`, `409`        |
+Independent manual examples (PowerShell):
 
----
-
-## Mystery Object
-
-Example response:
-
-```json
-{
-  "id": 1,
-  "slug": "sealed-room",
-  "title": "الغرفة المغلقة في سوق الحميدية",
-  "intro": "...",
-  "totalStages": 3,
-  "currentStage": 0,
-  "solved": false,
-  "hintsUsed": 0,
-  "currentQuestion": "...",
-  "currentOptions": [
-    "brass",
-    "iron",
-    "gold",
-    "silver"
-  ]
-}
+```powershell
+curl.exe http://localhost:3001/api/mysteries
+curl.exe http://localhost:3001/api/mysteries/2
+curl.exe http://localhost:3001/api/mysteries/2/clues
+Invoke-RestMethod http://localhost:3001/api/mysteries/1/answers -Method Post -ContentType 'application/json' -Body '{"answer":"brass"}'
+Invoke-RestMethod http://localhost:3001/api/mysteries/2/hint -Method Patch
+curl.exe -i http://localhost:3001/api/mysteries/999
+Invoke-WebRequest http://localhost:3001/api/mysteries/1/answers -Method Post -ContentType 'application/json' -Body '{}'
 ```
 
-> **Security note:** The correct answer is never sent to the client. It remains on the server.
+The final command intentionally returns 400. POST/PATCH examples change runtime progress; restart the server before a fresh demo.
 
----
+## Verification and remaining team work
 
-## HTTP Status Code Decisions
+Verified on 2026-10-03: clean temporary `npm ci` installs for both packages, TypeScript/Vite build, ESLint, six independent HTTP tests, and browser completion of both mysteries including wrong answers, hint exhaustion, final reveals, and a result refresh. Missing-ID recovery UI also works. Full details and the requirements checklist are in [the walkthrough](docs/CODE-WALKTHROUGH.md).
 
-| Scenario                              | Code  | Reason                                   |
-| ------------------------------------- | ----- | ---------------------------------------- |
-| Successful request                    | `200` | Request completed successfully           |
-| Missing or invalid answer             | `400` | Client sent invalid input                |
-| Mystery does not exist                | `404` | Requested resource was not found         |
-| Invalid action for current game state | `409` | Request conflicts with the current state |
+The code cannot establish team authorship or rehearse a presentation. Before submission, the team must review the story wording for originality, confirm each member's real commits, assign speaking roles, and rehearse the 5–7 minute English demo. Do not manufacture contributions or mark these human requirements complete automatically.
 
----
+## Team 4
 
-# Team
+Read the [team presentation guide](docs/PRESENTATION_GUIDE.md) for code walkthroughs,
+B4F lesson references, questions and answers, and a rehearsal checklist. It links
+to a separate guide for each of the six members and marks unverified ownership or
+missing assigned files as `TODO: need confirmation`.
 
-**Team 4 — B4F Cohort 8, Salamiyah**
+Hamid Al Haj (leader), Shiam Ezzo, Ali Mikdad, Mulham Al Kasir, Adham Albasha, and Hassan Alloush. The team leader coordinates the final work split. See the walkthrough for suggested speaking topics, not claimed authorship.
 
-| Student             | Role                                               |
-| ------------------- | -------------------------------------------------- |
-| **Hamid Al Haj**    | Team Lead + Backend                                |
-| **Ali Mikdad**      | Backend + Testing                                  |
-| **Shiam Ezzo**      | Frontend — Pages + Router + Navigation             |
-| **Hassan Alloush**  | Frontend — API Layer + Types + Loading/Error       |
-| **Mulham Al Kasir** | Frontend — Mystery List, Details, Game, and Result Pages |
-| **Adham Albasha**   | Frontend — Game Components + Result UI             |
+## Scope
 
----
+Built for the B4F weekly mini-project. React 18, React Router 7, TypeScript, Vite, Express, and in-memory state. No database, authentication, deployment, async Redux framework, or validation library. Keep development and presentation local, as required by the assignment.
 
-# Roles & Responsibilities
+## Adham component integration
 
-##  Hamid Al Haj — Team Lead + Backend
+Adham's supplied game components are integrated under lowercase
+`client/src/components/game/` to keep import casing consistent across operating
+systems. `GamePage` composes his header, progress text, question, options, submit,
+hint, clue, and feedback components. `ProgressBar` uses native accessible progress.
+`ResultPage` uses his result statistics, extended with the server-provided ending.
+The card uses explicit props and real case navigation instead of the draft Register
+button; unsupported duration/difficulty fields are not invented.
 
-* Owns the `server/` structure and integration
-* Coordinates the team and merges Pull Requests into `main`
-* Reviews backend changes
-* Writes the second mystery data
-* Performs final integration testing
-
-## Ali Mikdad — Backend + Testing
-
-* Assists with backend implementation
-* Independently tests every endpoint using Curl / Thunder Client
-* Verifies status codes and edge cases
-* Fixes backend bugs
-
-## Shiam Ezzo — Pages + Router + Navigation
-
-* Owns the remaining pages outside Molham's four-page scope
-* Owns `client/src/router/`
-* Builds Home, About, and Not Found pages
-* Implements `AppRouter.tsx` with dynamic routes
-* Builds Navbar, Header, and Footer
-* Ensures real navigation using `Link` / `NavLink`
-
-## Hassan Alloush — API Layer + Types
-
-* Owns `client/src/api/`
-* Owns `client/src/types/`
-* Builds the base `apiRequest` wrapper
-* Builds `mysteryApi.ts`
-* Defines TypeScript interfaces
-* Builds Loading, Error, and Empty states
-
-## Mulham (Molham) Al Kasir — Mystery Pages
-
-* Owns `MysteriesPage.tsx`, `MysteryDetailsPage.tsx`, `GamePage.tsx`, and `ResultPage.tsx`
-* Uses English interface labels and component-local state
-* Integrates the existing backend API and server-owned game progress
-* Coordinates with the API, reusable component, routing, and styling owners
-* Includes the subsequently requested case-archive styling in `client/src/index.css`
-* Does not include Theme Context, Language Context, or Redux setup
-* See [Molham's page implementation and verification guide](docs/MOLHAM-PAGES.md)
-
-The current four-page implementation uses flat `src/api.ts` and `src/types.ts`
-modules, following B4F Hub. These previously empty files contain the minimum API
-contracts needed by the pages. Routes are wired in `App.tsx` until integration with
-the team's router. `/` temporarily displays the mystery list. The structure above
-describes the broader team plan, not a claim that every listed module is implemented.
-Backend puzzle text is still Arabic; English content and the final story reveal
-remain dependencies for the backend/content owners.
-
-## Adham Albasha — Game Components + Result UI
-
-* Owns `client/src/components/game/`
-* Builds all game-related components
-* Builds `ResultCard` and result UI
-* Ensures components are reusable and focused
-* Handles success and wrong-answer feedback
-
----
-
-# Git Workflow
-
-## Branches
-
-### `main`
-
-Protected branch. Only **Hamid** merges Pull Requests into `main`.
-
-### Feature branches
-
-Use one branch per feature:
-
-```text
-feature/<name>-<task>
-```
-
-Example:
-
-```text
-feature/hassan-api-types
-```
-
----
-
-## Commit Messages
-
-| Prefix      | Use for               |
-| ----------- | --------------------- |
-| `feat:`     | New feature           |
-| `fix:`      | Bug fix               |
-| `docs:`     | Documentation         |
-| `chore:`    | Setup / configuration |
-| `refactor:` | Code refactoring      |
-| `test:`     | Testing               |
-
----
-
-## Development Workflow
-
-### 1. Start from the latest `main`
-
-```bash
-git checkout main
-git pull origin main
-```
-
-### 2. Create your feature branch
-
-```bash
-git checkout -b feature/<your-name>-<task>
-```
-
-### 3. Work and commit
-
-```bash
-git add .
-git commit -m "feat: add mystery API layer"
-```
-
-### 4. Push your branch
-
-```bash
-git push origin feature/<your-name>-<task>
-```
-
-### 5. Open a Pull Request
-
-Create a Pull Request on GitHub and wait for review.
-
----
-
-# ✅ Pull Request Checklist
-
-Before opening a Pull Request:
-
-* [ ] `npm run build` passes in the client
-* [ ] `npm run lint` passes in the client
-* [ ] `node --check index.js` passes in the server if backend code changed
-* [ ] All Curl / Postman / Thunder Client tests pass
-* [ ] No new npm packages without team approval
-* [ ] No database
-* [ ] No authentication
-* [ ] No forbidden libraries
-
----
-
-#  Merge Order
-
-To reduce conflicts, the recommended merge order is:
-
-1. **Hassan** — API + Types
-2. **Adham** — Game Components
-3. **Mulham** — Mystery List + Details + Game + Result Pages
-4. **Shiam** — Router + Pages
-5. **Hamid** — Final Integration
-
----
-
-# Definition of Done
-
-The project is considered complete when:
-
-* [ ] Fresh `npm install` works in both `server/` and `client/`
-* [ ] `npm start` works for the server
-* [ ] `npm run dev` works for the client
-* [ ] A player can go from **Home → Mystery → Solved → Result**
-* [ ] No console errors break the flow
-* [ ] All 5 API endpoints are independently testable
-* [ ] Both Mystery 1 and Mystery 2 are playable
-* [ ] Invalid answers return `400`
-* [ ] Missing mysteries return `404`
-* [ ] Invalid game-state requests return `409`
-* [ ] Loading, error, and empty states exist on API-driven screens
-* [ ] Story, clues, and wording are original
-* [ ] Every team member has a real speaking role in the presentation
-* [ ] The `main` branch contains commits from every team member
-
----
-
-# License
-
-This project was built for educational purposes as part of the:
-
-**B4F Bootcamp — Cohort 8, Salamiyah**
-
-It is **not intended for production use**.
-
----
-
-<p align="center">
-  <strong>Mystery Room</strong><br>
-  <em>Because the best way to learn is to build something you'd actually want to play.</em>
-</p>
+The existing API, backend stories, local mutation guards, error recovery, and theme
+remain integrated. The obsolete AnswerForm/HintPanel wrappers and duplicate root
+ResultCard were removed. The README and code walkthrough reflect the merged layout.
+Build, lint, six API tests, and browser completion of both mysteries passed after
+integration. No commits or authorship claims were created by importing these files.

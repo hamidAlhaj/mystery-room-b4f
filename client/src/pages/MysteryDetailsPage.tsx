@@ -1,3 +1,5 @@
+import LoadingMessage from "../components/LoadingMessage";
+import ErrorMessage from "../components/ErrorMessage";
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { getMysteryById } from "../api";
@@ -20,7 +22,11 @@ function MysteryDetails({ id }: { id: string }) {
         if (!ignore) setMystery(data);
       } catch (error) {
         if (!ignore) {
-          setError(error instanceof Error ? error.message : "Could not load this mystery.");
+          setError(
+            error instanceof Error
+              ? error.message
+              : "Could not load this mystery.",
+          );
         }
       } finally {
         if (!ignore) setIsLoading(false);
@@ -28,33 +34,67 @@ function MysteryDetails({ id }: { id: string }) {
     }
 
     void load();
-    return () => { ignore = true; };
+    return () => {
+      ignore = true;
+    };
   }, [id, reload]);
 
   return (
     <main className="mystery-details-page">
-      <Link className="back-link" to="/mysteries">← Back to mysteries</Link>
-      {isLoading && <p role="status">Loading mystery...</p>}
+      <Link className="back-link" to="/mysteries">
+        ← Back to mysteries
+      </Link>
+      {isLoading && <LoadingMessage label="Loading mystery..." />}
       {!isLoading && error && (
-        <div role="alert">
-          <h1>Unable to open this mystery</h1>
-          <p>{error}</p>
-          <button onClick={() => setReload(reload + 1)}>Try again</button>
-        </div>
+        <ErrorMessage
+          message={error}
+          onRetry={() => setReload((value) => value + 1)}
+          title="Unable to open this mystery"
+        />
       )}
       {!isLoading && !error && mystery && (
         <>
-          <p className="eyebrow">Case file / {String(mystery.id).padStart(3, "0")}</p>
-          <h1 dir="auto">{mystery.title}</h1>
-          <div className="story-panel"><span className="eyebrow">The story so far</span><p dir="auto">{mystery.intro}</p></div>
-          <div className="case-facts"><p><span>Total stages</span><strong>{mystery.totalStages}</strong></p><p><span>Hints used</span><strong>{mystery.hintsUsed}</strong></p><p><span>Case status</span><strong>{mystery.solved ? "Closed" : "Open"}</strong></p></div>
+          <p className="eyebrow">
+            Case file / {String(mystery.id).padStart(3, "0")}
+          </p>
+          <h1 lang="ar" dir="auto">
+            {mystery.title}
+          </h1>
+          <div className="story-panel">
+            <span className="eyebrow">The story so far</span>
+            <p lang="ar" dir="auto">
+              {mystery.intro}
+            </p>
+          </div>
+          <div className="case-facts">
+            <p>
+              <span>Total stages</span>
+              <strong>{mystery.totalStages}</strong>
+            </p>
+            <p>
+              <span>Hints used</span>
+              <strong>{mystery.hintsUsed}</strong>
+            </p>
+            <p>
+              <span>Case status</span>
+              <strong>{mystery.solved ? "Closed" : "Open"}</strong>
+            </p>
+          </div>
           {mystery.solved ? (
-            <Link className="button" to={`/result/${mystery.id}`}>View result <span aria-hidden="true">↗</span></Link>
+            <Link className="button" to={`/result/${mystery.id}`}>
+              View result <span aria-hidden="true">↗</span>
+            </Link>
           ) : (
             <>
-              <p className="muted">Current stage: {mystery.currentStage + 1} of {mystery.totalStages}. Your investigation begins with the evidence.</p>
+              <p className="muted">
+                Current stage: {mystery.currentStage + 1} of{" "}
+                {mystery.totalStages}. Your investigation begins with the
+                evidence.
+              </p>
               <Link className="button" to={`/mysteries/${mystery.id}/play`}>
-                {mystery.currentStage === 0 ? "Start mystery" : "Continue mystery"}
+                {mystery.currentStage === 0
+                  ? "Start mystery"
+                  : "Continue mystery"}
               </Link>
             </>
           )}
@@ -66,7 +106,11 @@ function MysteryDetails({ id }: { id: string }) {
 
 function MysteryDetailsPage() {
   const { id } = useParams();
-  return id ? <MysteryDetails key={id} id={id} /> : <Link to="/mysteries">Choose a mystery</Link>;
+  return id ? (
+    <MysteryDetails key={id} id={id} />
+  ) : (
+    <Link to="/mysteries">Choose a mystery</Link>
+  );
 }
 
 export default MysteryDetailsPage;

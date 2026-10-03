@@ -1,7 +1,7 @@
 import { mysteries, findMysteryById } from "../store.js";
 
 function toPublicMystery(mystery) {
-  const currentStage = mystery.stages[mystery.currentStage];
+  const currentStage = mystery.solved ? null : mystery.stages[mystery.currentStage];
 
   return {
     id: mystery.id,
@@ -12,6 +12,8 @@ function toPublicMystery(mystery) {
     currentStage: mystery.currentStage,
     solved: mystery.solved,
     hintsUsed: mystery.hintsUsed,
+    hintsRemaining: Math.max(0, 3 - mystery.hintsUsed),
+    reveal: mystery.solved ? mystery.reveal : null,
     currentQuestion: currentStage ? currentStage.question : "",
     currentOptions: currentStage ? currentStage.options : [],
   };
@@ -59,11 +61,12 @@ export function submitAnswer(req, res) {
   if (
     !req.body ||
     typeof req.body.answer !== "string" ||
-    req.body.answer.trim() === ""
+    req.body.answer.trim() === "" ||
+    req.body.answer.length > 200
   ) {
     return res
       .status(400)
-      .json({ error: "Answer must be a non-empty string." });
+      .json({ error: "Answer must be a non-empty string of at most 200 characters." });
   }
 
   if (mystery.solved) {
@@ -72,9 +75,14 @@ export function submitAnswer(req, res) {
 
   const currentStage = mystery.stages[mystery.currentStage];
   const submitted = req.body.answer.trim().toLowerCase();
-  const correct = currentStage.answer.toLowerCase();
+  const acceptedAnswers = Array.isArray(currentStage.answer)
+    ? currentStage.answer
+    : [currentStage.answer];
+  const isCorrect = acceptedAnswers.some(
+    (answer) => answer.trim().toLowerCase() === submitted,
+  );
 
-  if (submitted !== correct) {
+  if (!isCorrect) {
     return res.json({
       correct: false,
       message: "That does not match the evidence. Try again.",
@@ -110,6 +118,10 @@ export function requestHint(req, res) {
 
   if (mystery.solved) {
     return res.status(409).json({ error: "This mystery is already solved." });
+  }
+
+  if (mystery.hintsUsed >= 3) {
+    return res.status(409).json({ error: "No hints remaining for this mystery." });
   }
 
   const currentStage = mystery.stages[mystery.currentStage];

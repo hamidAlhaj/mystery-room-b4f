@@ -7,6 +7,8 @@ export interface Mystery {
   currentStage: number;
   solved: boolean;
   hintsUsed: number;
+  hintsRemaining: number;
+  reveal: string | null;
   currentQuestion: string;
   currentOptions: string[];
 }

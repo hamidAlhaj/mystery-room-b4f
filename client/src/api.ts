@@ -27,7 +27,10 @@ export function getClues(id: string): Promise<Clue[]> {
   return apiRequest<Clue[]>(`/${encodeURIComponent(id)}/clues`);
 }
 
-export function submitAnswer(id: string, answer: string): Promise<AnswerResponse> {
+export function submitAnswer(
+  id: string,
+  answer: string,
+): Promise<AnswerResponse> {
   return apiRequest<AnswerResponse>(`/${encodeURIComponent(id)}/answers`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
