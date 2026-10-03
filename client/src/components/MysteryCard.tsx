@@ -1,4 +1,7 @@
+import { Link } from "react-router-dom";
+
 type MysteryCardProps = {
+  id: number;
   title: string;
   description: string;
   difficulty: string;
@@ -7,6 +10,7 @@ type MysteryCardProps = {
 };
 
 function MysteryCard({
+  id,
   title,
   description,
   difficulty,
@@ -25,7 +29,9 @@ function MysteryCard({
         <span>{stages} Stages</span>
       </div>
 
-      <button type="button">Register</button>
+      <Link className="button" to={`/mysteries/${id}`}>
+        Register
+      </Link>
     </article>
   );
 }
