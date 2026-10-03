@@ -1,0 +1,28 @@
+export interface Mystery {
+  id: number;
+  slug: string;
+  title: string;
+  intro: string;
+  totalStages: number;
+  currentStage: number;
+  solved: boolean;
+  hintsUsed: number;
+  currentQuestion: string;
+  currentOptions: string[];
+}
+
+export interface Clue {
+  stage: number;
+  text: string;
+}
+
+export interface AnswerResponse {
+  correct: boolean;
+  message: string;
+  nextStage?: number | null;
+}
+
+export interface HintResponse {
+  hint: string;
+  hintsRemaining: number;
+}
