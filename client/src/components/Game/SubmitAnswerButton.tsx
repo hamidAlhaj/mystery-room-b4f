@@ -1,16 +1,17 @@
 interface SubmitAnswerButtonProps {
-  onClick: () => void;
   disabled: boolean;
+  isSubmitting: boolean;
 }
-function SubmitAnswerButton({ onClick, disabled }: SubmitAnswerButtonProps) {
+
+function SubmitAnswerButton({
+  disabled,
+  isSubmitting,
+}: SubmitAnswerButtonProps) {
   return (
-    <button
-      className="submit-answer-button"
-      onClick={onClick}
-      disabled={disabled}
-    >
-      Submit Answer
+    <button type="submit" disabled={disabled}>
+      {isSubmitting ? "Submitting..." : "Submit answer"}
     </button>
   );
 }
+
 export default SubmitAnswerButton;

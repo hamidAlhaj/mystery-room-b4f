@@ -1,12 +1,13 @@
 interface HintBoxProps {
   hint: string;
 }
+
 function HintBox({ hint }: HintBoxProps) {
-    return (
-      <div className="hint-box">
-        
-        <p>{hint}</p>
-      </div>
-    );
-}       
+  return (
+    <p className="hint-text" dir="auto" role="status">
+      {hint}
+    </p>
+  );
+}
+
 export default HintBox;

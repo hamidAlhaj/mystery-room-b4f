@@ -1,22 +1,40 @@
 interface AnswerOptionsProps {
   options: string[];
-  selected: string | null;
+  selected: string;
   onSelect: (answer: string) => void;
+  disabled?: boolean;
 }
 
-function AnswerOptions({ options, selected, onSelect }: AnswerOptionsProps) {
+function AnswerOptions({
+  options,
+  selected,
+  onSelect,
+  disabled = false,
+}: AnswerOptionsProps) {
   return (
     <div className="answer-options">
-      {options.map((option) => (
-        <button
+      {options.map((option, index) => (
+        <label
+          className={`answer-option ${
+            selected === option ? "is-selected" : ""
+          }`}
           key={option}
-          className={
-            selected === option ? "answer-option selected" : "answer-option"
-          }
-          onClick={() => onSelect(option)}
         >
-          {option}
-        </button>
+          <input
+            type="radio"
+            name="answer"
+            value={option}
+            checked={selected === option}
+            onChange={() => onSelect(option)}
+            disabled={disabled}
+          />
+
+          <span className="option-letter" aria-hidden="true">
+            {String.fromCharCode(65 + index)}
+          </span>
+
+          <span>{option}</span>
+        </label>
       ))}
     </div>
   );

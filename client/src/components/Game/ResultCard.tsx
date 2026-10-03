@@ -1,17 +1,25 @@
 interface ResultCardProps {
-  title: string;
-  message: string;
   stagesCompleted: number;
+  totalStages: number;
   hintsUsed: number;
 }
-function ResultCard({ title, message, stagesCompleted, hintsUsed }: ResultCardProps) {
-    return (
-      <div className="result-card">
-        <h2>{title}</h2>
-        <p>{message}</p>
-        <p>Stages Completed: {stagesCompleted}</p>
-        <p>Hints Used: {hintsUsed}</p>
-      </div>
-    );
+
+function ResultCard({
+  stagesCompleted,
+  totalStages,
+  hintsUsed,
+}: ResultCardProps) {
+  return (
+    <dl>
+      <dt>Stages completed</dt>
+      <dd>
+        {stagesCompleted} / {totalStages}
+      </dd>
+
+      <dt>Hints used</dt>
+      <dd>{hintsUsed}</dd>
+    </dl>
+  );
 }
+
 export default ResultCard;
