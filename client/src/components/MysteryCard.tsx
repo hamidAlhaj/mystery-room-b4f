@@ -5,7 +5,6 @@ type MysteryCardProps = {
   duration: string;
   stages: number;
 };
-
 function MysteryCard({
   title,
   description,
@@ -15,19 +14,15 @@ function MysteryCard({
 }: MysteryCardProps) {
   return (
     <article className="mystery-card">
-      <h2>{title}</h2>
-
-      <p>{description}</p>
-
+      {" "}
+      <h2>{title}</h2> <p>{description}</p>{" "}
       <div className="mystery-card-info">
-        <span>{difficulty}</span>
-        <span>{duration}</span>
-        <span>{stages} Stages</span>
-      </div>
-
-      <button type="button">Register</button>
+        {" "}
+        <span>{difficulty}</span> <span>{duration}</span>{" "}
+        <span>{stages} Stages</span>{" "}
+      </div>{" "}
+      <button type="button">Register</button>{" "}
     </article>
   );
 }
-
 export default MysteryCard;
