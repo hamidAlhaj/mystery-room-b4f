@@ -69,7 +69,8 @@ export function submitAnswer(req, res) {
   if (mystery.solved) {
     return res.status(409).json({ error: "This mystery is already solved." });
   }
-const currentStage = mystery.stages[mystery.currentStage];
+
+  const currentStage = mystery.stages[mystery.currentStage];
   const submitted = req.body.answer.trim().toLowerCase();
 
   const isCorrect = Array.isArray(currentStage.answer)
@@ -95,6 +96,12 @@ const currentStage = mystery.stages[mystery.currentStage];
   }
 
   mystery.currentStage = nextStage;
+
+  // تصفير عداد التلميحات للمرحلة الجديدة إذا كانت التلميحات عبارة عن مصفوفة
+  if (Array.isArray(currentStage.hint)) {
+    mystery.hintsUsed = 0;
+  }
+
   res.json({
     correct: true,
     message: "The lock clicks open. You may continue.",
@@ -115,12 +122,18 @@ export function requestHint(req, res) {
   }
 
   const currentStage = mystery.stages[mystery.currentStage];
+
+  // إذا كان التلميح مصفوفة يأخذ التلميح حسب الدور، وإلا يرجع النص العادي
+  const hintToReturn = Array.isArray(currentStage.hint)
+    ? currentStage.hint[Math.min(mystery.hintsUsed, currentStage.hint.length - 1)]
+    : currentStage.hint;
+
   mystery.hintsUsed += 1;
 
   const hintsRemaining = Math.max(0, 3 - mystery.hintsUsed);
 
   res.json({
-    hint: currentStage.hint,
+    hint: hintToReturn,
     hintsRemaining: hintsRemaining,
   });
 }

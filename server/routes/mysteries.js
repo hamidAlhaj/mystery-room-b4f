@@ -19,10 +19,8 @@ router.get("/:id", getMysteryById);
 // GET /api/mysteries/:id/clues
 router.get("/:id/clues", getCluesByMysteryId);
 
-// POST /api/mysteries/:id/answers
 router.post("/:id/answers", submitAnswer);
 
-// PATCH /api/mysteries/:id/hint
 router.patch("/:id/hint", requestHint);
 
 export default router;
