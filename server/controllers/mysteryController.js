@@ -16,6 +16,7 @@ function toPublicMystery(mystery) {
     reveal: mystery.solved ? mystery.reveal : null,
     currentQuestion: currentStage ? currentStage.question : "",
     currentOptions: currentStage ? currentStage.options : [],
+    currentHint: currentStage && currentStage.hintRevealed ? currentStage.hint : "",
   };
 }
 
@@ -32,22 +33,6 @@ export function getMysteryById(req, res) {
   }
 
   res.json(toPublicMystery(mystery));
-}
-
-export function getCluesByMysteryId(req, res) {
-  const id = Number(req.params.id);
-  const mystery = findMysteryById(id);
-
-  if (!mystery) {
-    return res.status(404).json({ error: `No mystery found with id ${id}.` });
-  }
-
-  const clues = mystery.stages.map((stage) => ({
-    stage: stage.id,
-    text: stage.clue,
-  }));
-
-  res.json(clues);
 }
 
 export function submitAnswer(req, res) {

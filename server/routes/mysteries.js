@@ -1,28 +1,22 @@
+/** @format */
+
 // server/routes/mysteries.js
-import express from "express";
+import express from "express"
 import {
   getAllMysteries,
   getMysteryById,
-  getCluesByMysteryId,
   submitAnswer,
   requestHint,
-} from "../controllers/mysteryController.js";
+} from "../controllers/mysteryController.js"
 
-const router = express.Router();
+const router = express.Router()
 
-// GET /api/mysteries
-router.get("/", getAllMysteries);
+router.get("/", getAllMysteries)
 
-// GET /api/mysteries/:id
-router.get("/:id", getMysteryById);
+router.get("/:id", getMysteryById)
 
-// GET /api/mysteries/:id/clues
-router.get("/:id/clues", getCluesByMysteryId);
+router.post("/:id/answers", submitAnswer)
 
-// POST /api/mysteries/:id/answers
-router.post("/:id/answers", submitAnswer);
+router.patch("/:id/hint", requestHint)
 
-// PATCH /api/mysteries/:id/hint
-router.patch("/:id/hint", requestHint);
-
-export default router;
+export default router
