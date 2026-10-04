@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="180 170 460 350">
+  <defs>
+    <linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#EED59B"/>
+      <stop offset="25%" stop-color="#D4AF37"/>
+      <stop offset="50%" stop-color="#C59B27"/>
+      <stop offset="75%" stop-color="#E8C87A"/>
+      <stop offset="100%" stop-color="#9E7818"/>
+    </linearGradient>
+
+    <filter id="dropShadow" x="-10%" y="-10%" width="130%" height="130%">
+      <feDropShadow dx="3" dy="5" stdDeviation="4" flood-color="#000000" flood-opacity="0.25"/>
+    </filter>
+  </defs>
+
+  <g id="Logo-MR" filter="url(#dropShadow)">
+    <path fill="#FFFFFF" fill-rule="evenodd" d="
+      M 200,190 L 245,245 L 245,450 L 200,450 Z
+      M 245,260 L 340,380 L 400,285
+      C 420,250 450,260 450,300
+      L 450,450 L 425,450 L 418,368
+      A 26,26 0 1,0 376,368
+      L 370,450 L 345,450 L 345,395
+      L 245,270 Z
+    "/>
+
+    <path fill="url(#goldGradient)" d="
+      M 405,200 C 470,200 525,200 565,225
+      C 615,255 625,325 580,375
+      C 555,402 520,410 480,412
+      L 620,500 L 560,500 L 445,415
+      C 460,405 480,390 500,365
+      C 525,335 520,290 490,265
+      C 465,245 425,245 375,245
+      L 375,200 Z
+    "/>
+  </g>
+</svg>

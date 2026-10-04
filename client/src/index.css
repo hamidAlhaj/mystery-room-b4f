@@ -934,3 +934,221 @@ main > .feedback-wrong {
 .text-answer {
   clear: both;
 }
+/* =========================================================
+   LIGHT THEME — "Golden Hour / Archive"
+   بيج غامق دافئ + لمسة برتقالي (إحساس الغروب على ورق قديم)
+   ========================================================= */
+:root[data-theme="light"] {
+  color-scheme: light;
+
+  /* الخلفيات */
+  --ink: #d8c19a; /* أرضية دافئة (غروب على رمل) */
+  --panel: #e6d3ad; /* الـ panels أفتح درجة */
+  --raised: #c9b083; /* العناصر الغاطسة أغمق */
+
+  /* الخطوط والحدود */
+  --line: #ac9268; /* حد بني واضح */
+
+  /* النصوص */
+  --paper: #2b2014; /* بني غامق جداً (مش أسود) */
+  --muted: #6d5738; /* بني فاتح للنص الثانوي */
+
+  /* الألوان المميزة */
+  --brass: #8a4f13; /* نحاسي غامق بلمسة برتقالي (هوية الموقع) */
+  --green: #3f6b45; /* أخضر غابة هادئ */
+  --red: #a03a22; /* تراكوتا / طيني */
+}
+
+/* ---------- body ---------- */
+:root[data-theme="light"] body {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+/* توهج الغروب بدل اللمسة الزرقاء */
+:root[data-theme="light"] body::before {
+  background:
+    radial-gradient(ellipse at 85% 5%, #e89a4a33, transparent 55%),
+    radial-gradient(ellipse at 15% 95%, #8a4f1311, transparent 60%);
+}
+
+/* ---------- Buttons (خلفية نحاسية، نص فاتح) ---------- */
+:root[data-theme="light"] button,
+:root[data-theme="light"] .button {
+  color: #fdf6e7; /* نص كريمي فاتح على النحاسي الغامق */
+}
+
+:root[data-theme="light"] button:hover:not(:disabled),
+:root[data-theme="light"] .button:hover {
+  background: #a3621a; /* نحاسي أفتح شوي عند الـ hover */
+  color: #fdf6e7;
+}
+
+/* الأزرار الثانوية: نص غامق، خلفية شفافة */
+:root[data-theme="light"] .button-secondary {
+  color: var(--paper);
+  background: transparent;
+}
+
+:root[data-theme="light"] .button-secondary:hover:not(:disabled) {
+  background: var(--raised);
+  color: var(--brass);
+  border-color: var(--brass);
+}
+
+/* ---------- Skip link ---------- */
+:root[data-theme="light"] .skip-link {
+  background: var(--paper);
+  color: var(--panel);
+}
+
+/* ---------- .case-art (خلفية رسم الباب) ---------- */
+:root[data-theme="light"] .case-art {
+  background:
+    radial-gradient(ellipse at 50% 80%, #8a4f1333, transparent 65%),
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 38px,
+      #8a4f1308 39px,
+      transparent 40px
+    ),
+    #cbb187; /* بيج غامق دافئ */
+}
+
+/* ---------- خلفيات الألواح الداخلية ---------- */
+:root[data-theme="light"] .answer-option,
+:root[data-theme="light"] #game-clues li,
+:root[data-theme="light"] .play-guide-panel,
+:root[data-theme="light"] .reveal-panel {
+  background: var(--panel);
+}
+
+:root[data-theme="light"] .answer-option {
+  background: #efe0bf; /* أفتح شوي من الـ panel للاختيارات */
+}
+
+:root[data-theme="light"] .answer-option.is-selected {
+  background: #e9d19c;
+}
+
+/* ---------- ظلال دافئة بدل السوداء ---------- */
+:root[data-theme="light"] .play-guide-panel {
+  box-shadow: 0 20px 60px #5a3d1a33;
+}
+
+:root[data-theme="light"] .door-illustration {
+  box-shadow:
+    0 0 0 8px #cbb187,
+    0 0 0 9px #8a6a3a,
+    12px 7px 30px #5a3d1a44;
+}
+
+/* ---------- الـ fieldset لما يكون disabled ---------- */
+:root[data-theme="light"] .answer-form button:disabled,
+:root[data-theme="light"] .button:disabled {
+  background: #9a7a4a;
+  color: #fdf6e7;
+  opacity: 0.5;
+}
+
+/* ---------- الـ input للنص ---------- */
+:root[data-theme="light"] .text-answer input {
+  background: #f5ebd3;
+  color: var(--paper);
+  border-color: var(--line);
+}
+
+/* ---------- الـ progress bar ---------- */
+:root[data-theme="light"] progress {
+  background: #bda379;
+}
+
+/* ---------- رسائل الحالة ---------- */
+:root[data-theme="light"] main > [role="status"] {
+  background: #8a4f1308;
+  color: var(--brass);
+  border-color: var(--brass);
+}
+
+:root[data-theme="light"] main > .feedback-success {
+  background: #3f6b4512;
+  color: var(--green);
+  border-color: var(--green);
+}
+
+:root[data-theme="light"] main > .feedback-wrong {
+  background: #a03a2212;
+  color: var(--red);
+  border-color: var(--red);
+}
+
+/* ---------- Hint ---------- */
+:root[data-theme="light"] .hint-text {
+  background: #8a4f1310;
+  border-color: var(--brass);
+  color: var(--brass);
+}
+
+/* ---------- Alert ---------- */
+:root[data-theme="light"] [role="alert"] {
+  background: #a03a220a;
+  border-color: #a03a2255;
+}
+
+:root[data-theme="light"] [role="alert"] p {
+  color: #7a2916;
+}
+
+/* ---------- solved-seal ---------- */
+:root[data-theme="light"] .solved-seal {
+  background: #3f6b450a;
+  border-color: #3f6b45aa;
+  outline-color: #3f6b4533;
+}
+
+/* ---------- نصوص الألوان الثابتة يلي بدها تصير بني ---------- */
+:root[data-theme="light"] .story-panel p {
+  color: #4a3826;
+}
+
+:root[data-theme="light"] #game-clues li p {
+  color: #4a3826;
+}
+
+/* ---------- archive-decoration (الـ ?) ---------- */
+:root[data-theme="light"] .archive-decoration {
+  -webkit-text-stroke: 1px #a8895c;
+}
+
+/* =========================================================
+   BUG FIX: كان في الداكن color: var(--ink) على عنصر ذهبي.
+   بالفاتح هذا كسر التباين. الحل: لون ثابت.
+   ========================================================= */
+.is-selected .option-letter {
+  background: var(--brass);
+  color: #fdf6e7; /* ثابت لكل الأوضاع */
+  border-color: var(--brass);
+}
+
+/* =========================================================
+   Theme toggle button
+   ========================================================= */
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: transparent;
+  border: 1px solid var(--line);
+  color: var(--muted);
+  padding: 8px 12px;
+  min-height: auto;
+  font-size: 12px;
+}
+
+.theme-toggle:hover:not(:disabled) {
+  background: var(--raised);
+  color: var(--brass);
+  border-color: var(--brass);
+  transform: none;
+}
