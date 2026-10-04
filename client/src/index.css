@@ -1152,3 +1152,37 @@ main > .feedback-wrong {
   border-color: var(--brass);
   transform: none;
 }
+
+.hint-toast {
+  position: fixed;
+  top: 24px;
+  right: 24px;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 20px;
+  background: var(--raised);
+  border: 1px solid var(--brass);
+  border-left: 4px solid var(--brass);
+  border-radius: 6px;
+  color: var(--paper);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
+  font-size: 14px;
+}
+
+.hint-toast button {
+  min-height: auto;
+  padding: 4px 10px;
+  background: transparent;
+  border: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.hint-toast button:hover {
+  background: transparent;
+  color: var(--brass);
+  border-color: var(--brass);
+  transform: none;
+}

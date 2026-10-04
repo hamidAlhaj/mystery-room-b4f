@@ -107,7 +107,6 @@ export function submitAnswer(req, res) {
     nextStage: nextStage,
   });
 }
-
 export function requestHint(req, res) {
   const id = Number(req.params.id);
   const mystery = findMysteryById(id);
@@ -120,11 +119,22 @@ export function requestHint(req, res) {
     return res.status(409).json({ error: "This mystery is already solved." });
   }
 
+  const currentStage = mystery.stages[mystery.currentStage];
+
+  if (currentStage.hintRevealed) {
+    const hintsRemaining = Math.max(0, 3 - mystery.hintsUsed);
+    return res.json({
+      hint: currentStage.hint,
+      hintsRemaining: hintsRemaining,
+      alreadyRevealed: true,
+    });
+  }
+
   if (mystery.hintsUsed >= 3) {
     return res.status(409).json({ error: "No hints remaining for this mystery." });
   }
 
-  const currentStage = mystery.stages[mystery.currentStage];
+  currentStage.hintRevealed = true;
   mystery.hintsUsed += 1;
 
   const hintsRemaining = Math.max(0, 3 - mystery.hintsUsed);
@@ -132,5 +142,6 @@ export function requestHint(req, res) {
   res.json({
     hint: currentStage.hint,
     hintsRemaining: hintsRemaining,
+    alreadyRevealed: false,
   });
 }
