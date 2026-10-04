@@ -5,7 +5,7 @@
 # 1. Project Overview
 
 Mystery Room — The Case Archive is a browser game with two Arabic stories and an
-English interface. Players choose a case, read clues, submit answers, and solve
+English interface. Players choose a case, read questions, submit answers, and solve
 three stages to unlock an ending.
 
 B4F Hub is the bootcamp teaching project for community posts and opportunities.
@@ -156,7 +156,7 @@ sequenceDiagram
   participant Server as Express controller
   participant Store as Runtime store
   Player->>Page: Open a mystery by ID
-  Page->>Helper: getMysteryById and getClues
+  Page->>Helper: getMysteryById
   Helper->>Server: GET requests
   Server->>Store: Read current case
   Server-->>Page: Public JSON through helper
@@ -208,7 +208,7 @@ our additions as exact code taught in that session.
 | Hamid | 45 sec | Home and first-case data | Team, product, player goal |
 | Shiam | 45 sec | App.tsx and browser | Home to archive to details; ID in URL |
 | Mulham | 60 sec | GamePage.tsx | Input state, wrong attempt, server progression |
-| Adham | 75 sec | AnswerOptions and ResultCard | Clue/hint controls; final reveal |
+| Adham | 75 sec | AnswerOptions and ResultCard | Hint controls; final reveal |
 | Hassan | 60 sec | api.ts, types.ts, ErrorMessage | Request flow and recovery |
 | Ali | 75 sec | Second-case data and tests | Free text, validation, challenge and improvement |
 
@@ -219,7 +219,7 @@ asks for a 5–7 minute English product presentation, not a reading of every fil
 
 1. Start at Home and explain the player goal in one sentence.
 2. Open case 1. Choose iron to demonstrate a wrong guess without progression.
-3. Show clues and request one hint. Explain the three-request budget per case.
+3. Request one hint. Explain the three-request budget per case.
 4. Solve the case, show the actual ending and statistics, and refresh the result.
 5. Open case 2 to show the text-input branch if time allows.
 6. Explain a real challenge: a server can accept an answer before its response is lost.

@@ -718,40 +718,6 @@ fieldset:disabled .answer-option {
   border-left: 2px solid var(--brass);
   color: var(--brass);
 }
-.clue-toggle {
-  width: 100%;
-  justify-content: space-between;
-  background: transparent;
-  border: none;
-  color: var(--paper);
-  padding: 22px 0;
-  font-weight: 400;
-}
-.clue-toggle:hover:not(:disabled) {
-  background: transparent;
-  color: var(--brass);
-  transform: none;
-}
-.clue-toggle > span {
-  font-size: 24px;
-  color: var(--brass);
-}
-#game-clues ul {
-  list-style: none;
-  display: grid;
-  gap: 12px;
-}
-#game-clues li {
-  background: var(--raised);
-  padding: 18px 22px;
-  border: 1px solid var(--line);
-  border-radius: 4px;
-}
-#game-clues li p {
-  margin-top: 10px;
-  color: #c4ceca;
-}
-
 /* ---------- Feedback and recovery ---------- */
 main > [role="status"] {
   margin: 20px 0;

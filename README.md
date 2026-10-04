@@ -30,7 +30,7 @@ If port 3001 is occupied, stop your previous development server in its terminal 
 
 1. Start at Home and select **Explore the mysteries**.
 2. Open a case, read its story, and select **Start mystery**.
-3. Reveal clues and choose or type an answer. Wrong guesses do not consume hints or advance the stage.
+3. Read the question and choose or type an answer. Wrong guesses do not consume hints or advance the stage.
 4. Request a hint if needed. Each mystery has three hint requests total; requesting the same stage's hint again also consumes a request.
 5. Complete all three stages to read the final reveal. Completed cases remain marked solved while the backend is running.
 
@@ -46,7 +46,7 @@ Stories, hints, clues, and endings are Arabic. Navigation, feedback, and documen
 - Home, archive, details, game, results, and not-found screens with real Router navigation.
 - Server-owned progression, answer validation, three-hint limits, and endings disclosed only after completion.
 - Loading, error/retry, empty, wrong-answer, and success states.
-- Reusable typed cards, answer form, progress, hints, clues, and feedback components.
+- Reusable typed cards, answer form, progress, hints, and feedback components.
 - Keyboard controls, focus styles, skip link, Arabic text direction, responsive CSS, and reduced-motion support.
 - One API module; no fetch calls in UI components.
 - Local component state for forms and request status; URL for the selected case; one in-memory backend store for game state.
@@ -70,7 +70,7 @@ client/
       game/
         StageHeader.tsx, StageQuestion.tsx, StageProgress.tsx
         AnswerOptions.tsx, SubmitAnswerButton.tsx
-        HintButton.tsx, HintBox.tsx, CluePanel.tsx
+        HintButton.tsx, HintBox.tsx
         GameStatus.tsx, SuccessMessage.tsx, WrongAnswerMessage.tsx
         ResultCard.tsx
     pages/
@@ -173,7 +173,7 @@ Built for the B4F weekly mini-project. React 18, React Router 7, TypeScript, Vit
 Adham's supplied game components are integrated under lowercase
 `client/src/components/game/` to keep import casing consistent across operating
 systems. `GamePage` composes his header, progress text, question, options, submit,
-hint, clue, and feedback components. `ProgressBar` uses native accessible progress.
+hint and feedback components. `ProgressBar` uses native accessible progress.
 `ResultPage` uses his result statistics, extended with the server-provided ending.
 The card uses explicit props and real case navigation instead of the draft Register
 button; unsupported duration/difficulty fields are not invented.

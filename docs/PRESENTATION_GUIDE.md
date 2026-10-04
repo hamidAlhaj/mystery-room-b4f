@@ -14,7 +14,7 @@ Based on the current provided code and local bootcamp references.
 # 1. Project Overview
 
 Mystery Room — The Case Archive is a browser game with two Arabic stories and an
-English interface. Players choose a case, read clues, submit answers, and solve
+English interface. Players choose a case, read questions, submit answers, and solve
 three stages to unlock an ending.
 
 B4F Hub is the bootcamp teaching project for community posts and opportunities.
@@ -165,8 +165,8 @@ are not proof of individual authorship; missing assignments are noted below.
 
 | File Path | Purpose | Key Functions/Classes/Components |
 | --- | --- | --- |
-| [client/src/api.ts](<../client/src/api.ts>) | Makes requests and converts failed responses into errors | apiRequest, getMysteries, getMysteryById, getClues, submitAnswer, requestHint |
-| [client/src/types.ts](<../client/src/types.ts>) | Describes public request results | Mystery, Clue, AnswerResponse, HintResponse |
+| [client/src/api.ts](<../client/src/api.ts>) | Makes requests and converts failed responses into errors | apiRequest, getMysteries, getMysteryById, submitAnswer, requestHint |
+| [client/src/types.ts](<../client/src/types.ts>) | Describes public request results | Mystery, AnswerResponse, HintResponse |
 | [client/src/components/LoadingMessage.tsx](<../client/src/components/LoadingMessage.tsx>) | Announces loading | LoadingMessage |
 | [client/src/components/ErrorMessage.tsx](<../client/src/components/ErrorMessage.tsx>) | Displays an error and optional retry action | ErrorMessage |
 | [client/src/components/EmptyState.tsx](<../client/src/components/EmptyState.tsx>) | Explains an empty collection | EmptyState |
@@ -252,7 +252,7 @@ are not proof of individual authorship; missing assignments are noted below.
 
 1. Pages keep temporary interface values in `useState`. Changing state makes React render the updated interface.
 2. A load effect requests server data. Cleanup guards stop an outdated request from updating a page that is no longer relevant.
-3. `GameSession` keeps the selected answer, hint, clue visibility, feedback, error, loading, and pending operation. The `busy` ref blocks overlapping answer/hint actions immediately.
+3. `GameSession` keeps the selected answer, hint, feedback, error, loading, and pending operation. The `busy` ref blocks overlapping answer/hint actions immediately.
 4. `handleSubmit` prevents the form's normal navigation, checks its guards, and calls `submitAnswer`. The response supplies the message and correct/wrong feedback.
 5. After a correct answer, a reload counter triggers a fresh read. The server decides whether to show another stage or navigate to the result.
 6. `handleHint` requests the hint and updates its returned remaining count. Adham's components receive these values and callbacks through props.
@@ -262,7 +262,7 @@ An `active` ref guards asynchronous handlers when the page unmounts. This does n
 
 ### 2.4 Key Concepts to Learn
 
-**Local state.** Local state belongs to one component instance. It is suitable for a selected answer or an open clue panel; it disappears when that instance is replaced.
+**Local state.** Local state belongs to one component instance. It is suitable for a selected answer or a visible hint; it disappears when that instance is replaced.
 
 **Effect and cleanup.** An effect synchronizes a component with something outside rendering, such as an API request. Cleanup and ignore guards prevent stale responses from changing the current screen.
 
@@ -315,7 +315,7 @@ Hub demonstrates broader state tools in [NotificationContext](<../../../B4F-Boot
 
 ### 2.1 High-Level Summary
 
-This area breaks the game screen into smaller components with clear jobs. Components show the question, answer controls, hints, clues, feedback, progress, and final result. The game page supplies their data and handles requests. The supplied work has been adapted to the current project, so this guide describes the integrated versions.
+This area breaks the game screen into smaller components with clear jobs. Components show the question, answer controls, hints, feedback, progress, and final result. The game page supplies their data and handles requests. The supplied work has been adapted to the current project, so this guide describes the integrated versions.
 
 ### 2.2 Files They Worked On
 
@@ -332,7 +332,6 @@ are not proof of individual authorship; missing assignments are noted below.
 | [client/src/components/game/SubmitAnswerButton.tsx](<../client/src/components/game/SubmitAnswerButton.tsx>) | Displays submission state | SubmitAnswerButton |
 | [client/src/components/game/HintButton.tsx](<../client/src/components/game/HintButton.tsx>) | Triggers the supplied hint callback | HintButton |
 | [client/src/components/game/HintBox.tsx](<../client/src/components/game/HintBox.tsx>) | Displays returned hint text | HintBox |
-| [client/src/components/game/CluePanel.tsx](<../client/src/components/game/CluePanel.tsx>) | Toggles the clue region | CluePanel |
 | [client/src/components/game/StageProgress.tsx](<../client/src/components/game/StageProgress.tsx>) | Displays the human-readable stage number | StageProgress |
 | [client/src/components/game/GameStatus.tsx](<../client/src/components/game/GameStatus.tsx>) | Displays a game status message | GameStatus |
 | [client/src/components/game/SuccessMessage.tsx](<../client/src/components/game/SuccessMessage.tsx>) | Announces positive feedback | SuccessMessage |
@@ -345,7 +344,7 @@ are not proof of individual authorship; missing assignments are noted below.
 2. `GamePage` passes the current title and question to the heading components. `StageQuestion` renders a `legend`, the label for a group of form controls.
 3. When options exist, `AnswerOptions` displays radio inputs. Its selected value comes from the page and its callback reports a new selection. For case 2, the text input lives directly in `GamePage`.
 4. Buttons receive disabled/loading values. Their callbacks invoke page handlers; the display components do not check the secret answers.
-5. Hint and clue components display server data. `CluePanel` receives its open state and toggle callback; all returned clues can be shown, not only completed-stage clues.
+5. Hint components display the hint returned by the server. The clues button and panel have been removed from the client.
 6. `StageProgress` adds one to the zero-based stage index for display. `ProgressBar` clamps its current value to a safe range and uses a native progress element.
 7. The page uses `GameStatus` for idle/submitting status and the separate success/wrong components for actual server feedback. Do not claim every supported GameStatus branch is exercised by the page.
 8. `ResultPage` supplies the solved reveal and statistics to `ResultCard`. The integrated card includes ending text and navigation, beyond the original statistics-only draft.
@@ -374,7 +373,7 @@ Compare Hub’s [OpportunityCard](<../../../B4F-BootCamp/b4f-cohort8-salamiyah-r
 
 - Start: “I split the playing screen into components that each do one clear job.”
 - Show the game folder, then follow props into `AnswerOptions`.
-- Demo a radio selection, clue toggle, hint, and result reveal.
+- Demo a radio selection, hint, and result reveal.
 - Mention the text-input branch is in the page and answer validation is on the server.
 - Avoid showing the old draft as if its props still match the integrated application.
 
@@ -574,7 +573,7 @@ sequenceDiagram
   participant Server as Express controller
   participant Store as Runtime store
   Player->>Page: Open a mystery by ID
-  Page->>Helper: getMysteryById and getClues
+  Page->>Helper: getMysteryById
   Helper->>Server: GET requests
   Server->>Store: Read current case
   Server-->>Page: Public JSON through helper
@@ -626,7 +625,7 @@ our additions as exact code taught in that session.
 | Hamid | 45 sec | Home and first-case data | Team, product, player goal |
 | Shiam | 45 sec | App.tsx and browser | Home to archive to details; ID in URL |
 | Mulham | 60 sec | GamePage.tsx | Input state, wrong attempt, server progression |
-| Adham | 75 sec | AnswerOptions and ResultCard | Clue/hint controls; final reveal |
+| Adham | 75 sec | AnswerOptions and ResultCard | Hint controls; final reveal |
 | Hassan | 60 sec | api.ts, types.ts, ErrorMessage | Request flow and recovery |
 | Ali | 75 sec | Second-case data and tests | Free text, validation, challenge and improvement |
 
@@ -637,7 +636,7 @@ asks for a 5–7 minute English product presentation, not a reading of every fil
 
 1. Start at Home and explain the player goal in one sentence.
 2. Open case 1. Choose iron to demonstrate a wrong guess without progression.
-3. Show clues and request one hint. Explain the three-request budget per case.
+3. Request one hint. Explain the three-request budget per case.
 4. Solve the case, show the actual ending and statistics, and refresh the result.
 5. Open case 2 to show the text-input branch if time allows.
 6. Explain a real challenge: a server can accept an answer before its response is lost.

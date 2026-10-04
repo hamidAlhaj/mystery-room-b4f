@@ -5,8 +5,8 @@ import GameStatus from "../components/game/GameStatus";
 import { useEffect, useRef, useState } from "react";
 import type { FormEvent } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { getClues, getMysteryById, requestHint, submitAnswer } from "../api";
-import type { Clue, Mystery } from "../types";
+import { getMysteryById, requestHint, submitAnswer } from "../api";
+import type { Mystery } from "../types";
 import StageHeader from "../components/game/StageHeader";
 import StageProgress from "../components/game/StageProgress";
 import StageQuestion from "../components/game/StageQuestion";
@@ -14,18 +14,15 @@ import AnswerOptions from "../components/game/AnswerOptions";
 import SubmitAnswerButton from "../components/game/SubmitAnswerButton";
 import HintButton from "../components/game/HintButton";
 import HintBox from "../components/game/HintBox";
-import CluePanel from "../components/game/CluePanel";
 import SuccessMessage from "../components/game/SuccessMessage";
 import WrongAnswerMessage from "../components/game/WrongAnswerMessage";
 
 function GameSession({ id }: { id: string }) {
   const navigate = useNavigate();
   const [mystery, setMystery] = useState<Mystery | null>(null);
-  const [clues, setClues] = useState<Clue[]>([]);
   const [selectedAnswer, setSelectedAnswer] = useState("");
   const [hint, setHint] = useState("");
   const [hintsRemaining, setHintsRemaining] = useState(0);
-  const [showClues, setShowClues] = useState(false);
   const [message, setMessage] = useState("");
   const [feedbackTone, setFeedbackTone] = useState<"success" | "wrong">(
     "success",
@@ -50,7 +47,6 @@ function GameSession({ id }: { id: string }) {
     setError("");
     setSelectedAnswer("");
     setHint("");
-    setShowClues(false);
 
     async function load() {
       try {
@@ -60,10 +56,7 @@ function GameSession({ id }: { id: string }) {
           navigate(`/result/${data.id}`, { replace: true });
           return;
         }
-        const clueData = await getClues(id);
-        if (ignore) return;
         setMystery(data);
-        setClues(clueData);
         setHintsRemaining(data.hintsRemaining);
       } catch (error) {
         if (!ignore) {
@@ -225,11 +218,6 @@ function GameSession({ id }: { id: string }) {
             />
             {hint && <HintBox hint={hint} />}
           </section>
-          <CluePanel
-            clues={clues}
-            isOpen={showClues}
-            onToggle={() => setShowClues((value) => !value)}
-          />
         </>
       )}
     </main>

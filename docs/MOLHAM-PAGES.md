@@ -8,7 +8,7 @@ The current implementation and requirements checklist are documented in
 
 - `MysteriesPage`: load the public collection; render cards or loading/error/empty feedback.
 - `MysteryDetailsPage`: load the story and server progress; offer Start, Continue, or Result.
-- `GamePage`: own temporary input, clues visibility, mutation status, and API interactions.
+- `GamePage`: own temporary input, mutation status, and API interactions.
 - `ResultPage`: independently load completion state; show the server reveal only when solved.
 
 Home and NotFound pages are now implemented. `main.tsx` owns the single BrowserRouter.
@@ -39,7 +39,7 @@ not a substitute for checking a new change.
 ## Adham game UI handoff
 
 GamePage now composes Adham's StageHeader, StageProgress, StageQuestion,
-AnswerOptions, SubmitAnswerButton, HintButton, HintBox, CluePanel, GameStatus,
+AnswerOptions, SubmitAnswerButton, HintButton, HintBox, GameStatus,
 SuccessMessage, and WrongAnswerMessage. Shared ProgressBar renders completion.
 ResultCard lives in `components/game/` and combines his statistics with the final
 server reveal. MysteryCard uses explicit props and working Router links.

@@ -23,7 +23,7 @@ export default function Navbar() {
             <h2>Follow your curiosity.</h2>
             <ol>
               <li>Open a case and read its story.</li>
-              <li>Inspect the clues and choose your answer.</li>
+              <li>Read the question and choose or type your answer.</li>
               <li>Use a hint when you need a new perspective.</li>
               <li>Solve every stage to close the case.</li>
             </ol>

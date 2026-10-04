@@ -23,7 +23,7 @@ export default function HomePage() {
             evidence.
           </li>
           <li>
-            <strong>Follow the clues.</strong> Choose an answer or type your
+            <strong>Read the question.</strong> Choose an answer or type your
             discovery. Wrong answers cost nothing.
           </li>
           <li>

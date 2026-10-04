@@ -1,4 +1,4 @@
-import type { AnswerResponse, Clue, HintResponse, Mystery } from "./types";
+import type { AnswerResponse, HintResponse, Mystery } from "./types";
 
 async function apiRequest<T>(path: string, options?: RequestInit): Promise<T> {
   const response = await fetch(`/api/mysteries${path}`, options);
@@ -21,10 +21,6 @@ export function getMysteries(): Promise<Mystery[]> {
 
 export function getMysteryById(id: string): Promise<Mystery> {
   return apiRequest<Mystery>(`/${encodeURIComponent(id)}`);
-}
-
-export function getClues(id: string): Promise<Clue[]> {
-  return apiRequest<Clue[]>(`/${encodeURIComponent(id)}/clues`);
 }
 
 export function submitAnswer(

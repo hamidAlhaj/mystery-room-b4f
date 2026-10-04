@@ -5,7 +5,7 @@
 # 1. Project Overview
 
 Mystery Room — The Case Archive is a browser game with two Arabic stories and an
-English interface. Players choose a case, read clues, submit answers, and solve
+English interface. Players choose a case, read questions, submit answers, and solve
 three stages to unlock an ending.
 
 B4F Hub is the bootcamp teaching project for community posts and opportunities.
@@ -84,7 +84,7 @@ are not proof of individual authorship; missing assignments are noted below.
 
 1. Pages keep temporary interface values in `useState`. Changing state makes React render the updated interface.
 2. A load effect requests server data. Cleanup guards stop an outdated request from updating a page that is no longer relevant.
-3. `GameSession` keeps the selected answer, hint, clue visibility, feedback, error, loading, and pending operation. The `busy` ref blocks overlapping answer/hint actions immediately.
+3. `GameSession` keeps the selected answer, hint, feedback, error, loading, and pending operation. The `busy` ref blocks overlapping answer/hint actions immediately.
 4. `handleSubmit` prevents the form's normal navigation, checks its guards, and calls `submitAnswer`. The response supplies the message and correct/wrong feedback.
 5. After a correct answer, a reload counter triggers a fresh read. The server decides whether to show another stage or navigate to the result.
 6. `handleHint` requests the hint and updates its returned remaining count. Adham's components receive these values and callbacks through props.
@@ -94,7 +94,7 @@ An `active` ref guards asynchronous handlers when the page unmounts. This does n
 
 ### 2.4 Key Concepts to Learn
 
-**Local state.** Local state belongs to one component instance. It is suitable for a selected answer or an open clue panel; it disappears when that instance is replaced.
+**Local state.** Local state belongs to one component instance. It is suitable for a selected answer or a visible hint; it disappears when that instance is replaced.
 
 **Effect and cleanup.** An effect synchronizes a component with something outside rendering, such as an API request. Cleanup and ignore guards prevent stale responses from changing the current screen.
 
@@ -158,7 +158,7 @@ sequenceDiagram
   participant Server as Express controller
   participant Store as Runtime store
   Player->>Page: Open a mystery by ID
-  Page->>Helper: getMysteryById and getClues
+  Page->>Helper: getMysteryById
   Helper->>Server: GET requests
   Server->>Store: Read current case
   Server-->>Page: Public JSON through helper
@@ -210,7 +210,7 @@ our additions as exact code taught in that session.
 | Hamid | 45 sec | Home and first-case data | Team, product, player goal |
 | Shiam | 45 sec | App.tsx and browser | Home to archive to details; ID in URL |
 | Mulham | 60 sec | GamePage.tsx | Input state, wrong attempt, server progression |
-| Adham | 75 sec | AnswerOptions and ResultCard | Clue/hint controls; final reveal |
+| Adham | 75 sec | AnswerOptions and ResultCard | Hint controls; final reveal |
 | Hassan | 60 sec | api.ts, types.ts, ErrorMessage | Request flow and recovery |
 | Ali | 75 sec | Second-case data and tests | Free text, validation, challenge and improvement |
 
@@ -221,7 +221,7 @@ asks for a 5–7 minute English product presentation, not a reading of every fil
 
 1. Start at Home and explain the player goal in one sentence.
 2. Open case 1. Choose iron to demonstrate a wrong guess without progression.
-3. Show clues and request one hint. Explain the three-request budget per case.
+3. Request one hint. Explain the three-request budget per case.
 4. Solve the case, show the actual ending and statistics, and refresh the result.
 5. Open case 2 to show the text-input branch if time allows.
 6. Explain a real challenge: a server can accept an answer before its response is lost.

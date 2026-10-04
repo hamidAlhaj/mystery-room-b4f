@@ -13,11 +13,6 @@ export interface Mystery {
   currentOptions: string[];
 }
 
-export interface Clue {
-  stage: number;
-  text: string;
-}
-
 export interface AnswerResponse {
   correct: boolean;
   message: string;

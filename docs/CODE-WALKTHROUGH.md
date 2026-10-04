@@ -6,7 +6,7 @@ This describes the implemented code, not a proposed architecture.
 ## 1. Explain the product in thirty seconds
 
 “Mystery Room is a browser game with two story cases. Players read the situation,
-inspect clues, and solve three stages. React shows the interface, but Express
+read questions, and solve three stages. React shows the interface, but Express
 checks every answer and owns progress. Completing a case unlocks its ending.”
 
 The first case uses multiple-choice answers. The second uses typed Arabic answers.
@@ -17,7 +17,7 @@ English labels help the English presentation; the stories remain Arabic.
 | Information | Owner | Why |
 | --- | --- | --- |
 | Which case is open | Router URL | Direct links and refreshes work |
-| Current input, open clues, visible hint, pending request | React page state | Only this screen needs them |
+| Current input, visible hint, pending request | React page state | Only this screen needs them |
 | Actual stage, solved flag, hint count | `server/store.js` | Client cannot award itself progress |
 | Story, accepted answers, reveal | `server/data/mysteries.js` | Content and answers stay server-side |
 
@@ -54,7 +54,7 @@ Validation of submitted answers is performed with plain JavaScript checks on the
 | `main.tsx` | Mounts React in StrictMode and wraps the application in one BrowserRouter |
 | `App.tsx` | Shared shell and six route definitions; no gameplay calculations |
 | `api.ts` | One fetch wrapper, named helpers, JSON request headers, readable HTTP errors |
-| `types.ts` | Mystery, Clue, AnswerResponse, HintResponse interfaces |
+| `types.ts` | Mystery, AnswerResponse, HintResponse interfaces |
 | `pages/HomePage.tsx` | Product introduction, instructions, and archive link |
 | `pages/MysteriesPage.tsx` | Collection request, retry, empty state, and card mapping |
 | `pages/MysteryDetailsPage.tsx` | Story and Start/Continue/Result decision |
@@ -79,7 +79,6 @@ Validation of submitted answers is performed with plain JavaScript checks on the
 | `components/game/GameStatus.tsx` | Pending answer announcement |
 | `components/game/SuccessMessage.tsx` | Backend success message |
 | `components/game/WrongAnswerMessage.tsx` | Backend wrong-answer message |
-| `components/game/CluePanel.tsx` | Disclosure with aria-expanded and evidence list |
 | `index.css` | Theme tokens, layout, cards, forms, feedback, mobile and reduced-motion styles |
 | `vite.config.ts` | Proxies relative `/api` requests to localhost:3001 during development |
 
@@ -120,8 +119,8 @@ still change the shared server state; that limitation is stated on Home and in t
 until solved; after solving, question/options are empty. `hintsRemaining` comes from
 the backend so the client does not hardcode a separate budget.
 
-Clues are available together through a player-controlled disclosure. Progressive
-clue unlocking is not required and is not claimed by this implementation.
+The clues button and panel have been removed from the client. The backend clues
+endpoint remains available, but the game page no longer requests it.
 
 ## 7. Status codes and validation
 
@@ -190,7 +189,7 @@ Aim for 5–7 minutes. The leader confirms assignments with the team.
 | --- | --- |
 | Hamid Al Haj | Introduce the team, project goal, and two stories |
 | Shiam Ezzo | Show Home, navigation, and how a player chooses a case |
-| Mulham Al Kasir | Demonstrate a wrong answer, clue, hint, and progression |
+| Mulham Al Kasir | Demonstrate a wrong answer, hint, and progression |
 | Adham Albasha | Finish the case and explain the final reveal and reusable game UI |
 | Hassan Alloush | Explain API helpers, typed props, and error/retry behavior |
 | Ali Mikdad | Explain server validation, independent tests, and one challenge/next improvement |
