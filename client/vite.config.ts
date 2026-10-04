@@ -3,6 +3,7 @@ import react from "@vitejs/plugin-react";
 
 export default defineConfig({
   plugins: [react()],
+  base: "/mystery-room-b4f/",
   server: {
     proxy: {
       "/api": "http://localhost:3001",

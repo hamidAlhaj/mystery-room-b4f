@@ -1,7 +1,9 @@
 import type { AnswerResponse, HintResponse, Mystery } from "./types";
 
+const API_URL = import.meta.env.PROD ? import.meta.env.VITE_API_URL : "";
+
 async function apiRequest<T>(path: string, options?: RequestInit): Promise<T> {
-  const response = await fetch(`/api/mysteries${path}`, options);
+  const response = await fetch(`${API_URL}/api/mysteries${path}`, options);
 
   if (!response.ok) {
     const data = await response.json().catch(() => null);

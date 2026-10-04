@@ -8,18 +8,18 @@ import { store } from "./store/store";
 import App from "./App";
 import { ThemeProvider } from "./context/ThemeContext";
 import "./index.css";
-const rootElement = document.getElementById("root")
+const rootElement = document.getElementById("root");
 
 if (rootElement) {
   createRoot(rootElement).render(
     <StrictMode>
       <Provider store={store}>
-      <BrowserRouter>
-        <ThemeProvider>
-          <App />
-        </ThemeProvider>
-      </BrowserRouter>
+        <BrowserRouter basename={import.meta.env.BASE_URL}>
+          <ThemeProvider>
+            <App />
+          </ThemeProvider>
+        </BrowserRouter>
       </Provider>
     </StrictMode>,
-  )
+  );
 }
