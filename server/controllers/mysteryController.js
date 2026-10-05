@@ -11,6 +11,9 @@ function toPublicMystery(mystery) {
   const currentStage =
     mystery.solved || locked ? null : mystery.stages[mystery.currentStage];
 
+  const stageHintsTotal = currentStage?.hints ? currentStage.hints.length : 3;
+  const stageHintsUsed = currentStage?.hintsUsed || 0;
+
   return {
     id: mystery.id,
     slug: mystery.slug,
@@ -21,12 +24,16 @@ function toPublicMystery(mystery) {
     solved: mystery.solved,
     locked: locked,
     hintsUsed: mystery.hintsUsed,
-    hintsRemaining: Math.max(0, 3 - mystery.hintsUsed),
+    hintsRemaining: currentStage
+      ? Math.max(0, stageHintsTotal - stageHintsUsed)
+      : 0,
     reveal: mystery.solved ? mystery.reveal : null,
     currentQuestion: currentStage ? currentStage.question : "",
     currentOptions: currentStage ? currentStage.options : [],
-    currentHint:
-      currentStage && currentStage.hintRevealed ? currentStage.hint : "",
+   currentHint:
+      currentStage && stageHintsUsed > 0
+        ? currentStage.hints[stageHintsUsed - 1]
+        : "",
   };
 }
 
@@ -65,11 +72,9 @@ export function submitAnswer(req, res) {
     req.body.answer.trim() === "" ||
     req.body.answer.length > 200
   ) {
-    return res
-      .status(400)
-      .json({
-        error: "Answer must be a non-empty string of at most 200 characters.",
-      });
+    return res.status(400).json({
+      error: "Answer must be a non-empty string of at most 200 characters.",
+    });
   }
 
   if (mystery.solved) {
@@ -130,29 +135,23 @@ export function requestHint(req, res) {
   }
 
   const currentStage = mystery.stages[mystery.currentStage];
+  const stageHints = currentStage.hints || [];
+  const usedInStage = currentStage.hintsUsed || 0;
 
-  if (currentStage.hintRevealed) {
-    const hintsRemaining = Math.max(0, 3 - mystery.hintsUsed);
-    return res.json({
-      hint: currentStage.hint,
-      hintsRemaining: hintsRemaining,
-      alreadyRevealed: true,
-    });
-  }
-
-  if (mystery.hintsUsed >= 3) {
+  if (usedInStage >= stageHints.length) {
     return res
       .status(409)
-      .json({ error: "No hints remaining for this mystery." });
+      .json({ error: "No hints remaining for this stage." });
   }
 
-  currentStage.hintRevealed = true;
+  const nextHint = stageHints[usedInStage];
+  currentStage.hintsUsed = usedInStage + 1;
   mystery.hintsUsed += 1;
 
-  const hintsRemaining = Math.max(0, 3 - mystery.hintsUsed);
+  const hintsRemaining = Math.max(0, stageHints.length - currentStage.hintsUsed);
 
   res.json({
-    hint: currentStage.hint,
+    hint: nextHint,
     hintsRemaining: hintsRemaining,
     alreadyRevealed: false,
   });

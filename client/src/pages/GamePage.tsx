@@ -54,7 +54,7 @@ function GameSession({ id }: { id: string }) {
     setIsLoading(true)
     setError("")
     setSelectedAnswer("")
-async function load() {
+    async function load() {
       try {
         const data = await getMysteryById(id)
         if (ignore) return
@@ -68,9 +68,17 @@ async function load() {
           navigate(`/result/${data.id}`, { replace: true })
           return
         }
-        setMystery(data)
-        dispatch(initStageHints(data.hintsRemaining));
-      } catch (error) {
+       setMystery(data)
+        dispatch(initStageHints(data.hintsRemaining))
+        if (data.currentHint) {
+          dispatch(
+            setHintData({
+              hint: data.currentHint,
+              hintsRemaining: data.hintsRemaining,
+              alreadyShown: true,
+            }),
+          )
+        } } catch (error) {
         if (!ignore) {
           setError(
             error instanceof Error ? error.message : "Could not load the game.",
@@ -85,7 +93,7 @@ async function load() {
     return () => {
       ignore = true
     }
-}, [id, reload, navigate, dispatch])
+  }, [id, reload, navigate, dispatch])
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
     if (
@@ -123,21 +131,25 @@ async function load() {
       if (active.current) setPending(null)
     }
   }
-
   async function handleHint() {
-    if (busy.current || isLoading || error || !mystery) return;
-if (hint) {
-  dispatch(setHintData({ hint, hintsRemaining, alreadyShown: true }));
-  return;
-}
-if (hintsRemaining === 0) return;
-  busy.current = true
+    if (busy.current || isLoading || error || !mystery) return
+    if (hintsRemaining === 0) return
+
+    busy.current = true
     setPending("hint")
     setMessage("")
-try {
+
+    try {
       const response = await requestHint(id)
       if (!active.current) return
-dispatch(setHintData({ hint: response.hint, hintsRemaining: response.hintsRemaining, alreadyShown: false }));    } catch (error) {
+      dispatch(
+        setHintData({
+          hint: response.hint,
+          hintsRemaining: response.hintsRemaining,
+          alreadyShown: false,
+        }),
+      )
+    } catch (error) {
       if (active.current) {
         setError(
           error instanceof Error ? error.message : "Could not request a hint.",
