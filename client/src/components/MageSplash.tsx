@@ -36,50 +36,52 @@ export default function MageSplash() {
           fill: "none",
           xmlns: "http://www.w3.org/2000/svg",
         },
-        // Wizard Hat
+        // Wizard Hat (Centered at X = 80, Royal Purple)
         h("path", {
-          d: "M35 62 L80 12 L115 62 Z",
-          fill: "#1f1610",
-          stroke: "#d99b43",
+          d: "M42 62 L80 12 L118 62 Z",
+          fill: "#3b0764",
+          stroke: "#c084fc",
           strokeWidth: "3",
+          strokeLinejoin: "round",
         }),
         h("ellipse", {
-          cx: "75",
+          cx: "80",
           cy: "62",
-          rx: "52",
+          rx: "50",
           ry: "10",
-          fill: "#2c1e14",
-          stroke: "#d99b43",
+          fill: "#581c87",
+          stroke: "#c084fc",
           strokeWidth: "2.5",
         }),
-        // Glowing Eyes
-        h("circle", { cx: "65", cy: "76", r: "3.5", fill: "#fbbf24" }),
-        h("circle", { cx: "85", cy: "76", r: "3.5", fill: "#fbbf24" }),
-        // Wizard Cloak
+        // Glowing Golden Eyes
+        h("circle", { cx: "70", cy: "76", r: "3.5", fill: "#fbbf24" }),
+        h("circle", { cx: "90", cy: "76", r: "3.5", fill: "#fbbf24" }),
+        // Wizard Cloak (Deep Violet)
         h("path", {
-          d: "M48 86 Q75 100 102 86 L118 145 L32 145 Z",
-          fill: "#17110c",
-          stroke: "#b8863b",
+          d: "M53 86 Q80 100 107 86 L122 145 L38 145 Z",
+          fill: "#2e1065",
+          stroke: "#a855f7",
           strokeWidth: "2.5",
+          strokeLinejoin: "round",
         }),
         // Wizard Staff + Glowing Orb
         h(
           "g",
           { className: "staff-group" },
           h("line", {
-            x1: "125",
-            y1: "45",
-            x2: "110",
-            y2: "148",
+            x1: "130",
+            y1: "44",
+            x2: "116",
+            y2: "146",
             stroke: "#fcd34d",
             strokeWidth: "4",
             strokeLinecap: "round",
           }),
           h("circle", {
             className: "staff-orb",
-            cx: "125",
+            cx: "130",
             cy: "38",
-            r: "10",
+            r: "9.5",
             fill: "#fbbf24",
           })
         )

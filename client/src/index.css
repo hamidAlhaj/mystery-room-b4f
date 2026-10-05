@@ -1,15 +1,20 @@
-/* ---------- Foundation ---------- */
+/**
+ * ---------- Foundation (Arcane Purple & Mystic Gold Theme) ----------
+ *
+ * @format
+ */
+
 :root {
   color-scheme: dark;
-  --ink: #101c20;
-  --panel: #18282c;
-  --raised: #203237;
-  --line: #35464a;
-  --paper: #f0e9da;
-  --muted: #a9b6b5;
-  --brass: #dfbc78;
-  --green: #9fd1b8;
-  --red: #f1aaa1;
+  --ink: #090414; /* خلفية ليلية بنفسجية عميقة جداً */
+  --panel: #140a26; /* خلفية الكروت والألواح السحرية */
+  --raised: #1f1038; /* العناصر المرتفعة والقوائم */
+  --line: #3b2063; /* حدود بنفسجية متوهجة بنعومة */
+  --paper: #f5f0ff; /* نص أبيض خزامي مريح للعين */
+  --muted: #b69fd6; /* نص ثانوي بنفسجي هادئ */
+  --brass: #fbbf24; /* ذهبي سحري مشع (نفس عيون وعصا الساحر) */
+  --green: #34d399; /* أخضر زمردي سحري للإجابات الصحيحة */
+  --red: #fb7185; /* قرمزي متوهج للإجابات الخاطئة */
 }
 * {
   margin: 0;
@@ -28,7 +33,17 @@ body::before {
   inset: 0;
   z-index: -1;
   pointer-events: none;
-  background: radial-gradient(ellipse at 85% 5%, #2b454733, transparent 55%);
+  background:
+    radial-gradient(
+      ellipse at 85% 5%,
+      rgba(147, 51, 234, 0.22),
+      transparent 55%
+    ),
+    radial-gradient(
+      ellipse at 15% 90%,
+      rgba(251, 191, 36, 0.08),
+      transparent 50%
+    );
 }
 #root {
   min-height: 100vh;
@@ -58,27 +73,32 @@ button,
   gap: 24px;
   min-height: 48px;
   padding: 12px 24px;
-  border: 1px solid var(--brass);
-  border-radius: 4px;
-  background: var(--brass);
-  color: #192326;
+  border: 1px solid #c084fc;
+  border-radius: 6px;
+  background: linear-gradient(135deg, #7e22ce 0%, #4c1d95 100%);
+  color: #ffffff;
   font-size: 14px;
   font-weight: 650;
   cursor: pointer;
+  box-shadow: 0 0 20px rgba(168, 85, 247, 0.35);
   transition:
-    background 160ms,
-    border-color 160ms,
-    transform 160ms;
+    background 180ms,
+    border-color 180ms,
+    box-shadow 180ms,
+    transform 180ms;
 }
 button:hover:not(:disabled),
 .button:hover {
-  background: #eed19c;
-  color: #192326;
-  transform: translateY(-1px);
+  background: linear-gradient(135deg, #9333ea 0%, #5b21b6 100%);
+  border-color: var(--brass);
+  color: #ffffff;
+  box-shadow: 0 0 28px rgba(251, 191, 36, 0.45);
+  transform: translateY(-2px);
 }
 button:disabled {
   cursor: not-allowed;
   opacity: 0.45;
+  box-shadow: none;
 }
 a:focus-visible,
 button:focus-visible,
@@ -98,12 +118,13 @@ h1 {
   font-size: clamp(32px, 4vw, 52px);
   letter-spacing: -0.025em;
   overflow-wrap: anywhere;
+  text-shadow: 0 0 24px rgba(168, 85, 247, 0.35);
 }
 h2 {
   font-size: 28px;
 }
 em {
-  color: var(--brass);
+  color: #c084fc;
   font-weight: 400;
 }
 .eyebrow {
@@ -166,12 +187,15 @@ em {
 .brand-mark {
   width: 43px;
   height: 47px;
-  border: 1px solid var(--brass);
+  border: 1px solid #c084fc;
+  background: rgba(126, 34, 206, 0.2);
+  box-shadow: 0 0 15px rgba(168, 85, 247, 0.3);
   color: var(--brass);
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 22px;
+  border-radius: 4px;
 }
 .brand-mark span {
   font-size: 16px;
@@ -210,10 +234,12 @@ em {
   max-width: calc(100vw - 40px);
   background: var(--raised);
   padding: 28px;
-  border: 1px solid var(--line);
-  box-shadow: 0 20px 60px #0006;
+  border: 1px solid #7e22ce;
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.75),
+    0 0 25px rgba(168, 85, 247, 0.25);
   z-index: 10;
-  border-radius: 6px;
+  border-radius: 8px;
 }
 .play-guide-panel h2 {
   margin: 12px 0 20px;
@@ -256,8 +282,11 @@ main {
 main:not(.mysteries-page) {
   padding: 42px 48px;
   border: 1px solid var(--line);
-  border-radius: 8px;
+  border-radius: 10px;
   background: var(--panel);
+  box-shadow:
+    0 12px 45px rgba(0, 0, 0, 0.5),
+    0 0 30px rgba(126, 34, 206, 0.12);
 }
 .back-link {
   display: block;
@@ -296,10 +325,11 @@ main > .eyebrow {
     260px Georgia,
     serif;
   color: transparent;
-  -webkit-text-stroke: 1px #546965;
+  -webkit-text-stroke: 1px #7e22ce;
   transform: rotate(12deg);
   opacity: 0.35;
   user-select: none;
+  filter: drop-shadow(0 0 20px rgba(168, 85, 247, 0.4));
 }
 .section-heading {
   border-top: 1px solid var(--line);
@@ -324,13 +354,19 @@ main > .eyebrow {
   display: grid;
   grid-template-columns: 32% 1fr;
   border: 1px solid var(--line);
-  border-radius: 8px;
+  border-radius: 10px;
   overflow: hidden;
   background: var(--panel);
-  transition: border-color 180ms;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+  transition:
+    border-color 200ms,
+    box-shadow 200ms,
+    transform 200ms;
 }
 .case-card:hover {
-  border-color: #7d8070;
+  border-color: #a855f7;
+  box-shadow: 0 12px 35px rgba(147, 51, 234, 0.25);
+  transform: translateY(-2px);
 }
 .case-art {
   position: relative;
@@ -340,15 +376,19 @@ main > .eyebrow {
   align-items: center;
   justify-content: center;
   background:
-    radial-gradient(ellipse at 50% 80%, #92774744, transparent 65%),
+    radial-gradient(
+      ellipse at 50% 80%,
+      rgba(168, 85, 247, 0.32),
+      transparent 65%
+    ),
     repeating-linear-gradient(
       0deg,
       transparent,
       transparent 38px,
-      #d9bd8610 39px,
+      rgba(192, 132, 252, 0.07) 39px,
       transparent 40px
     ),
-    #142125;
+    #0e061c;
   border-right: 1px solid var(--line);
 }
 .case-number {
@@ -370,20 +410,20 @@ main > .eyebrow {
   position: relative;
   width: 124px;
   height: 185px;
-  border: 1px solid #ac925f;
+  border: 1px solid #c084fc;
   border-radius: 70px 70px 0 0;
   margin-top: 15px;
   box-shadow:
-    0 0 0 8px #142125,
-    0 0 0 9px #726645,
-    12px 7px 30px #0005;
-  background: linear-gradient(90deg, #192629, #25332e, #172225);
+    0 0 0 8px #0e061c,
+    0 0 0 9px #6b21a8,
+    0 0 30px rgba(168, 85, 247, 0.45);
+  background: linear-gradient(90deg, #160a2c, #2b1254, #140826);
 }
 .door-illustration::before {
   content: "";
   position: absolute;
   inset: 13px;
-  border: 1px solid #7f76504d;
+  border: 1px solid rgba(251, 191, 36, 0.35);
   border-radius: 60px 60px 0 0;
 }
 .door-illustration::after {
@@ -391,10 +431,10 @@ main > .eyebrow {
   position: absolute;
   width: 185px;
   height: 1px;
-  background: #ac925f;
+  background: #c084fc;
   bottom: -2px;
   left: -31px;
-  box-shadow: 0 6px 0 #635941;
+  box-shadow: 0 6px 0 #581c87;
 }
 .keyhole {
   position: absolute;
@@ -404,7 +444,7 @@ main > .eyebrow {
   height: 14px;
   background: var(--brass);
   border-radius: 50%;
-  box-shadow: 0 0 25px #dfbc7840;
+  box-shadow: 0 0 25px #fbbf24;
 }
 .keyhole::after {
   content: "";
@@ -429,15 +469,17 @@ main > .eyebrow {
   margin-bottom: 22px;
 }
 .status-badge {
-  border: 1px solid #796d4c;
+  border: 1px solid #9333ea;
+  background: rgba(147, 51, 234, 0.15);
   border-radius: 30px;
   padding: 3px 11px;
   font-size: 10px;
-  color: var(--brass);
+  color: #e9d5ff;
   white-space: nowrap;
 }
 .status-badge.is-solved {
-  border-color: #56796b;
+  border-color: #059669;
+  background: rgba(16, 185, 129, 0.15);
   color: var(--green);
 }
 .case-content h2 {
@@ -464,13 +506,13 @@ main > .eyebrow {
 
 /* ---------- Story and results ---------- */
 .story-panel {
-  border-left: 2px solid var(--brass);
+  border-left: 2px solid #c084fc;
   padding: 5px 0 5px 25px;
   margin: 32px 0;
 }
 .story-panel p {
   margin-top: 12px;
-  color: #c4ceca;
+  color: #e2d4f5;
   font-size: 18px;
   line-height: 1.9;
 }
@@ -510,13 +552,14 @@ main > .eyebrow {
   display: grid;
   place-items: center;
   font-size: 30px;
-  border: 1px solid #739a85;
-  outline: 1px solid #739a8533;
+  border: 1px solid #c084fc;
+  outline: 1px solid rgba(192, 132, 252, 0.3);
   outline-offset: 7px;
   border-radius: 50%;
-  color: var(--green);
+  color: var(--brass);
   margin: 18px auto 35px;
-  background: #9fd1b80a;
+  background: rgba(126, 34, 206, 0.2);
+  box-shadow: 0 0 25px rgba(168, 85, 247, 0.4);
 }
 .result-page h1 {
   margin: 18px 0 25px;
@@ -581,24 +624,24 @@ progress {
   display: block;
   appearance: none;
   width: 100%;
-  height: 4px;
+  height: 5px;
   border: none;
-  border-radius: 2px;
+  border-radius: 3px;
   background: var(--line);
-  accent-color: var(--brass);
+  accent-color: #a855f7;
   margin-bottom: 34px;
 }
 progress::-webkit-progress-bar {
   background: var(--line);
-  border-radius: 2px;
+  border-radius: 3px;
 }
 progress::-webkit-progress-value {
-  background: var(--brass);
-  border-radius: 2px;
+  background: linear-gradient(90deg, #9333ea, #fbbf24);
+  border-radius: 3px;
 }
 progress::-moz-progress-bar {
-  background: var(--brass);
-  border-radius: 2px;
+  background: linear-gradient(90deg, #9333ea, #fbbf24);
+  border-radius: 3px;
 }
 fieldset {
   border: none;
@@ -623,20 +666,23 @@ legend {
   gap: 14px;
   padding: 15px 18px;
   border: 1px solid var(--line);
-  border-radius: 4px;
-  background: #142226;
+  border-radius: 6px;
+  background: #100720;
   cursor: pointer;
   font-size: 15px;
   transition:
     border-color 150ms,
-    background 150ms;
+    background 150ms,
+    box-shadow 150ms;
 }
 .answer-option:hover {
-  border-color: #82918a;
+  border-color: #a855f7;
+  background: #1a0d33;
 }
 .answer-option.is-selected {
   border-color: var(--brass);
-  background: #dfbc7810;
+  background: rgba(168, 85, 247, 0.18);
+  box-shadow: 0 0 18px rgba(168, 85, 247, 0.25);
 }
 .answer-option:focus-within {
   outline: 2px solid var(--brass);
@@ -657,12 +703,12 @@ legend {
   border: 1px solid var(--line);
   font-size: 10px;
   color: var(--muted);
-  border-radius: 3px;
+  border-radius: 4px;
 }
 .is-selected .option-letter {
-  background: var(--brass);
-  color: var(--ink);
-  border-color: var(--brass);
+  background: #7e22ce;
+  color: #ffffff;
+  border-color: #c084fc;
 }
 fieldset:disabled .answer-option {
   cursor: wait;
@@ -677,14 +723,19 @@ fieldset:disabled .answer-option {
   gap: 10px;
   color: var(--muted);
   font-size: 13px;
+  clear: both;
 }
 .text-answer input {
   width: 100%;
   border: 1px solid var(--line);
-  border-radius: 4px;
+  border-radius: 6px;
   background: var(--ink);
   color: var(--paper);
   padding: 14px;
+}
+.text-answer input:focus {
+  border-color: #c084fc;
+  box-shadow: 0 0 15px rgba(168, 85, 247, 0.25);
 }
 .hint-panel {
   margin-top: 30px;
@@ -705,6 +756,7 @@ fieldset:disabled .answer-option {
   color: var(--paper);
   border-color: var(--line);
   background: transparent;
+  box-shadow: none;
 }
 .button-secondary:hover:not(:disabled) {
   background: var(--raised);
@@ -714,42 +766,44 @@ fieldset:disabled .answer-option {
 .hint-text {
   width: 100%;
   padding: 16px 20px;
-  background: #dfbc780a;
-  border-left: 2px solid var(--brass);
-  color: var(--brass);
+  background: rgba(168, 85, 247, 0.12);
+  border-left: 3px solid var(--brass);
+  border-radius: 0 6px 6px 0;
+  color: #fde68a;
 }
+
 /* ---------- Feedback and recovery ---------- */
 main > [role="status"] {
   margin: 20px 0;
   padding: 16px 20px;
   border-left: 2px solid var(--brass);
-  background: #dfbc780a;
+  background: rgba(251, 191, 36, 0.08);
   color: var(--brass);
 }
 main > .feedback-success {
   color: var(--green);
-  background: #9fd1b80b;
+  background: rgba(52, 211, 153, 0.1);
   border-color: var(--green);
 }
 main > .feedback-wrong {
   color: var(--red);
-  background: #f1aaa10b;
+  background: rgba(251, 113, 133, 0.1);
   border-color: var(--red);
 }
 [role="alert"] {
   margin: 24px 0;
   padding: 24px;
-  border: 1px solid #77534f;
+  border: 1px solid rgba(251, 113, 133, 0.4);
   border-left: 3px solid var(--red);
-  background: #f1aaa108;
-  border-radius: 4px;
+  background: rgba(251, 113, 133, 0.08);
+  border-radius: 6px;
 }
 [role="alert"] h1 {
   font-size: 26px;
   margin-bottom: 14px;
 }
 [role="alert"] p {
-  color: #efc4bd;
+  color: #fecdd3;
   margin-bottom: 12px;
 }
 [role="alert"] button {
@@ -778,6 +832,8 @@ main > .feedback-wrong {
   }
   .site-header nav {
     gap: 20px;
+    width: 100%;
+    justify-content: space-between;
   }
   .site-footer {
     margin-top: 40px;
@@ -846,10 +902,6 @@ main > .feedback-wrong {
   .stage-heading .muted {
     display: none;
   }
-  .site-header nav {
-    width: 100%;
-    justify-content: space-between;
-  }
   .play-guide-panel {
     right: 0;
     left: auto;
@@ -904,7 +956,7 @@ main > .feedback-wrong {
   padding: 24px;
   background: var(--ink);
   border: 1px solid var(--line);
-  border-radius: 6px;
+  border-radius: 8px;
 }
 .reveal-panel h2 {
   font-size: 21px;
@@ -931,208 +983,106 @@ main > .feedback-wrong {
   font-size: 12px;
   color: var(--brass);
 }
-.text-answer {
-  clear: both;
-}
+
 /* =========================================================
-   LIGHT THEME — "Golden Hour / Archive"
-   بيج غامق دافئ + لمسة برتقالي (إحساس الغروب على ورق قديم)
+   LIGHT THEME — "Celestial Lavender / Astral Realm"
+   وضع نهاري سحري بألوان الخزامى الفاتح والبنفسجي الملكي
    ========================================================= */
 :root[data-theme="light"] {
   color-scheme: light;
-
-  /* الخلفيات */
-  --ink: #d8c19a; /* أرضية دافئة (غروب على رمل) */
-  --panel: #e6d3ad; /* الـ panels أفتح درجة */
-  --raised: #c9b083; /* العناصر الغاطسة أغمق */
-
-  /* الخطوط والحدود */
-  --line: #ac9268; /* حد بني واضح */
-
-  /* النصوص */
-  --paper: #2b2014; /* بني غامق جداً (مش أسود) */
-  --muted: #6d5738; /* بني فاتح للنص الثانوي */
-
-  /* الألوان المميزة */
-  --brass: #8a4f13; /* نحاسي غامق بلمسة برتقالي (هوية الموقع) */
-  --green: #3f6b45; /* أخضر غابة هادئ */
-  --red: #a03a22; /* تراكوتا / طيني */
+  --ink: #efe8f8;
+  --panel: #f9f5ff;
+  --raised: #e3d6f4;
+  --line: #c4aee3;
+  --paper: #240c42;
+  --muted: #64458a;
+  --brass: #6b21a8;
+  --green: #047857;
+  --red: #be123c;
 }
 
-/* ---------- body ---------- */
 :root[data-theme="light"] body {
   background: var(--ink);
   color: var(--paper);
 }
 
-/* توهج الغروب بدل اللمسة الزرقاء */
 :root[data-theme="light"] body::before {
   background:
-    radial-gradient(ellipse at 85% 5%, #e89a4a33, transparent 55%),
-    radial-gradient(ellipse at 15% 95%, #8a4f1311, transparent 60%);
+    radial-gradient(
+      ellipse at 85% 5%,
+      rgba(168, 85, 247, 0.2),
+      transparent 55%
+    ),
+    radial-gradient(ellipse at 15% 95%, rgba(217, 119, 6, 0.1), transparent 60%);
 }
 
-/* ---------- Buttons (خلفية نحاسية، نص فاتح) ---------- */
-:root[data-theme="light"] button,
-:root[data-theme="light"] .button {
-  color: #fdf6e7; /* نص كريمي فاتح على النحاسي الغامق */
+:root[data-theme="light"] h1 {
+  text-shadow: none;
 }
 
-:root[data-theme="light"] button:hover:not(:disabled),
-:root[data-theme="light"] .button:hover {
-  background: #a3621a; /* نحاسي أفتح شوي عند الـ hover */
-  color: #fdf6e7;
+:root[data-theme="light"] em {
+  color: #7e22ce;
 }
 
-/* الأزرار الثانوية: نص غامق، خلفية شفافة */
-:root[data-theme="light"] .button-secondary {
-  color: var(--paper);
-  background: transparent;
+:root[data-theme="light"] main:not(.mysteries-page) {
+  box-shadow: 0 12px 35px rgba(88, 28, 135, 0.1);
 }
 
-:root[data-theme="light"] .button-secondary:hover:not(:disabled) {
-  background: var(--raised);
-  color: var(--brass);
-  border-color: var(--brass);
-}
-
-/* ---------- Skip link ---------- */
-:root[data-theme="light"] .skip-link {
-  background: var(--paper);
-  color: var(--panel);
-}
-
-/* ---------- .case-art (خلفية رسم الباب) ---------- */
 :root[data-theme="light"] .case-art {
   background:
-    radial-gradient(ellipse at 50% 80%, #8a4f1333, transparent 65%),
+    radial-gradient(
+      ellipse at 50% 80%,
+      rgba(147, 51, 234, 0.2),
+      transparent 65%
+    ),
     repeating-linear-gradient(
       0deg,
       transparent,
       transparent 38px,
-      #8a4f1308 39px,
+      rgba(107, 33, 168, 0.06) 39px,
       transparent 40px
     ),
-    #cbb187; /* بيج غامق دافئ */
-}
-
-/* ---------- خلفيات الألواح الداخلية ---------- */
-:root[data-theme="light"] .answer-option,
-:root[data-theme="light"] #game-clues li,
-:root[data-theme="light"] .play-guide-panel,
-:root[data-theme="light"] .reveal-panel {
-  background: var(--panel);
-}
-
-:root[data-theme="light"] .answer-option {
-  background: #efe0bf; /* أفتح شوي من الـ panel للاختيارات */
-}
-
-:root[data-theme="light"] .answer-option.is-selected {
-  background: #e9d19c;
-}
-
-/* ---------- ظلال دافئة بدل السوداء ---------- */
-:root[data-theme="light"] .play-guide-panel {
-  box-shadow: 0 20px 60px #5a3d1a33;
+    #dfd0f5;
 }
 
 :root[data-theme="light"] .door-illustration {
   box-shadow:
-    0 0 0 8px #cbb187,
-    0 0 0 9px #8a6a3a,
-    12px 7px 30px #5a3d1a44;
+    0 0 0 8px #dfd0f5,
+    0 0 0 9px #9333ea,
+    12px 7px 30px rgba(88, 28, 135, 0.25);
 }
 
-/* ---------- الـ fieldset لما يكون disabled ---------- */
-:root[data-theme="light"] .answer-form button:disabled,
-:root[data-theme="light"] .button:disabled {
-  background: #9a7a4a;
-  color: #fdf6e7;
-  opacity: 0.5;
+:root[data-theme="light"] .answer-option {
+  background: #f3ecfc;
 }
 
-/* ---------- الـ input للنص ---------- */
+:root[data-theme="light"] .answer-option.is-selected {
+  background: #e5d4fa;
+  border-color: #7e22ce;
+}
+
 :root[data-theme="light"] .text-answer input {
-  background: #f5ebd3;
+  background: #ffffff;
   color: var(--paper);
   border-color: var(--line);
 }
 
-/* ---------- الـ progress bar ---------- */
-:root[data-theme="light"] progress {
-  background: #bda379;
+:root[data-theme="light"] .story-panel p {
+  color: #3b1763;
 }
 
-/* ---------- رسائل الحالة ---------- */
-:root[data-theme="light"] main > [role="status"] {
-  background: #8a4f1308;
-  color: var(--brass);
-  border-color: var(--brass);
-}
-
-:root[data-theme="light"] main > .feedback-success {
-  background: #3f6b4512;
-  color: var(--green);
-  border-color: var(--green);
-}
-
-:root[data-theme="light"] main > .feedback-wrong {
-  background: #a03a2212;
-  color: var(--red);
-  border-color: var(--red);
-}
-
-/* ---------- Hint ---------- */
 :root[data-theme="light"] .hint-text {
-  background: #8a4f1310;
-  border-color: var(--brass);
-  color: var(--brass);
-}
-
-/* ---------- Alert ---------- */
-:root[data-theme="light"] [role="alert"] {
-  background: #a03a220a;
-  border-color: #a03a2255;
+  background: rgba(126, 34, 206, 0.08);
+  border-color: #7e22ce;
+  color: #581c87;
 }
 
 :root[data-theme="light"] [role="alert"] p {
-  color: #7a2916;
-}
-
-/* ---------- solved-seal ---------- */
-:root[data-theme="light"] .solved-seal {
-  background: #3f6b450a;
-  border-color: #3f6b45aa;
-  outline-color: #3f6b4533;
-}
-
-/* ---------- نصوص الألوان الثابتة يلي بدها تصير بني ---------- */
-:root[data-theme="light"] .story-panel p {
-  color: #4a3826;
-}
-
-:root[data-theme="light"] #game-clues li p {
-  color: #4a3826;
-}
-
-/* ---------- archive-decoration (الـ ?) ---------- */
-:root[data-theme="light"] .archive-decoration {
-  -webkit-text-stroke: 1px #a8895c;
+  color: #881337;
 }
 
 /* =========================================================
-   BUG FIX: كان في الداكن color: var(--ink) على عنصر ذهبي.
-   بالفاتح هذا كسر التباين. الحل: لون ثابت.
-   ========================================================= */
-.is-selected .option-letter {
-  background: var(--brass);
-  color: #fdf6e7; /* ثابت لكل الأوضاع */
-  border-color: var(--brass);
-}
-
-/* =========================================================
-   Theme toggle button
+   Theme toggle button & Hint Toast
    ========================================================= */
 .theme-toggle {
   display: inline-flex;
@@ -1144,6 +1094,7 @@ main > .feedback-wrong {
   padding: 8px 12px;
   min-height: auto;
   font-size: 12px;
+  box-shadow: none;
 }
 
 .theme-toggle:hover:not(:disabled) {
@@ -1151,6 +1102,7 @@ main > .feedback-wrong {
   color: var(--brass);
   border-color: var(--brass);
   transform: none;
+  box-shadow: none;
 }
 
 .hint-toast {
@@ -1163,11 +1115,13 @@ main > .feedback-wrong {
   gap: 16px;
   padding: 14px 20px;
   background: var(--raised);
-  border: 1px solid var(--brass);
+  border: 1px solid #c084fc;
   border-left: 4px solid var(--brass);
-  border-radius: 6px;
+  border-radius: 8px;
   color: var(--paper);
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
+  box-shadow:
+    0 12px 32px rgba(0, 0, 0, 0.6),
+    0 0 20px rgba(168, 85, 247, 0.3);
   font-size: 14px;
 }
 
@@ -1178,6 +1132,7 @@ main > .feedback-wrong {
   border: 1px solid var(--line);
   color: var(--muted);
   font-size: 12px;
+  box-shadow: none;
 }
 
 .hint-toast button:hover {
@@ -1185,4 +1140,309 @@ main > .feedback-wrong {
   color: var(--brass);
   border-color: var(--brass);
   transform: none;
+  box-shadow: none;
+}
+
+/* =========================================================
+   ✨ EXTRA ARCANE VISUAL POLISH ✨
+   ========================================================= */
+
+/* 1. استيراد خط الأساطير والسحر Cinzel للعناوين */
+@import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&display=swap");
+
+h1,
+h2,
+h3,
+.brand,
+.mage-splash-title {
+  font-family: "Cinzel", Georgia, serif !important;
+  letter-spacing: 0.03em;
+}
+
+/* 2. غبار سحري متحرك في الخلفية */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image:
+    radial-gradient(2px 2px at 20% 30%, #fbbf24, transparent),
+    radial-gradient(2px 2px at 75% 15%, #c084fc, transparent),
+    radial-gradient(1.5px 1.5px at 40% 70%, #fbbf24, transparent),
+    radial-gradient(2.5px 2.5px at 85% 65%, #a855f7, transparent),
+    radial-gradient(1.5px 1.5px at 15% 85%, #ffffff, transparent),
+    radial-gradient(2px 2px at 55% 45%, #c084fc, transparent);
+  background-size: 350px 350px;
+  animation: arcaneDust 22s linear infinite;
+  opacity: 0.55;
+}
+
+@keyframes arcaneDust {
+  0% {
+    transform: translateY(0px);
+  }
+  100% {
+    transform: translateY(-350px);
+  }
+}
+
+/* 3. جعل البوابة وثقب المفتاح ينبضان بالسحر */
+.door-illustration {
+  animation: portalFloat 4s ease-in-out infinite;
+}
+
+.keyhole {
+  animation: keyholePulse 2s ease-in-out infinite alternate;
+}
+
+@keyframes portalFloat {
+  0%,
+  100% {
+    box-shadow:
+      0 0 0 8px #0e061c,
+      0 0 0 9px #6b21a8,
+      0 0 25px rgba(168, 85, 247, 0.4);
+  }
+  50% {
+    box-shadow:
+      0 0 0 8px #0e061c,
+      0 0 0 9px #c084fc,
+      0 0 45px rgba(251, 191, 36, 0.45);
+  }
+}
+
+@keyframes keyholePulse {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 15px #fbbf24;
+  }
+  100% {
+    transform: scale(1.18);
+    box-shadow:
+      0 0 32px #fbbf24,
+      0 0 12px #ffffff;
+  }
+}
+
+/* 4. دوران ختم الفوز النهائي واهتزاز الإجابة الخاطئة */
+.solved-seal {
+  animation: sealGlow 3s ease-in-out infinite alternate;
+}
+
+@keyframes sealGlow {
+  0% {
+    transform: scale(1) rotate(0deg);
+    box-shadow: 0 0 20px rgba(168, 85, 247, 0.4);
+  }
+  100% {
+    transform: scale(1.08) rotate(8deg);
+    box-shadow: 0 0 38px rgba(251, 191, 36, 0.7);
+  }
+}
+
+main > .feedback-wrong {
+  animation: spellBackfire 0.4s ease-in-out;
+}
+
+@keyframes spellBackfire {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-8px);
+  }
+  50% {
+    transform: translateX(8px);
+  }
+  75% {
+    transform: translateX(-5px);
+  }
+}
+
+/* 5. شريط تمرير وتظليل نصوص سحري */
+::selection {
+  background: #7e22ce;
+  color: #fbbf24;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #090414;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #6b21a8, #c084fc);
+  border-radius: 999px;
+}
+/* ---------- تأثير فتح المخطوطة السحرية للتلميح ---------- */
+.hint-text {
+  position: relative;
+  overflow: hidden;
+  transform-origin: top center;
+  animation: unfurlScroll 0.55s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  box-shadow:
+    0 10px 28px rgba(126, 34, 206, 0.28),
+    inset 0 0 15px rgba(251, 191, 36, 0.12);
+  border-top: 1px solid rgba(251, 191, 36, 0.45);
+  border-bottom: 1px solid rgba(251, 191, 36, 0.45);
+}
+
+@keyframes unfurlScroll {
+  0% {
+    opacity: 0;
+    transform: scaleY(0.05) translateY(-12px);
+    filter: brightness(2.2);
+  }
+  60% {
+    opacity: 1;
+    filter: brightness(1.3);
+  }
+  100% {
+    opacity: 1;
+    transform: scaleY(1) translateY(0);
+    filter: brightness(1);
+  }
+}
+/* =========================================================
+   ELEMENTAL AURA PER STAGE (PURE CSS VIA PROGRESS VALUE)
+   ========================================================= */
+
+.game-page {
+  transition:
+    border-color 0.6s ease,
+    box-shadow 0.6s ease,
+    background 0.6s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+/* 1. ساحر الرياح (المرحلة 1): توهج سماوي فاتح */
+.game-page:has(progress[value="1"]) {
+  border-color: #38bdf8;
+  box-shadow:
+    0 12px 45px rgba(0, 0, 0, 0.6),
+    0 0 40px rgba(56, 189, 248, 0.28),
+    inset 0 0 25px rgba(56, 189, 248, 0.08);
+}
+.game-page:has(progress[value="1"]) .stage-heading,
+.game-page:has(progress[value="1"]) .eyebrow {
+  color: #7dd3fc;
+}
+.game-page:has(progress[value="1"]) progress::-webkit-progress-value {
+  background: linear-gradient(90deg, #0284c7, #7dd3fc);
+}
+
+/* 2. ساحر المحيطات (المرحلة 2): توهج أزرق عميق */
+.game-page:has(progress[value="2"]) {
+  border-color: #3b82f6;
+  box-shadow:
+    0 12px 45px rgba(0, 0, 0, 0.6),
+    0 0 45px rgba(37, 99, 235, 0.35),
+    inset 0 0 30px rgba(29, 78, 216, 0.12);
+}
+.game-page:has(progress[value="2"]) .stage-heading,
+.game-page:has(progress[value="2"]) .eyebrow {
+  color: #60a5fa;
+}
+.game-page:has(progress[value="2"]) progress::-webkit-progress-value {
+  background: linear-gradient(90deg, #1d4ed8, #60a5fa);
+}
+
+/* 3. ساحرة الغابات والأرض (المرحلة 3): توهج أخضر زمردي */
+.game-page:has(progress[value="3"]) {
+  border-color: #10b981;
+  box-shadow:
+    0 12px 45px rgba(0, 0, 0, 0.6),
+    0 0 40px rgba(16, 185, 129, 0.3),
+    inset 0 0 25px rgba(16, 185, 129, 0.08);
+}
+.game-page:has(progress[value="3"]) .stage-heading,
+.game-page:has(progress[value="3"]) .eyebrow {
+  color: #34d399;
+}
+.game-page:has(progress[value="3"]) progress::-webkit-progress-value {
+  background: linear-gradient(90deg, #047857, #34d399);
+}
+
+/* 4. ساحر النار (المرحلة 4): توهج برتقالي ناري */
+.game-page:has(progress[value="4"]) {
+  border-color: #f97316;
+  box-shadow:
+    0 12px 45px rgba(0, 0, 0, 0.6),
+    0 0 45px rgba(249, 115, 22, 0.35),
+    inset 0 0 28px rgba(239, 68, 68, 0.1);
+}
+.game-page:has(progress[value="4"]) .stage-heading,
+.game-page:has(progress[value="4"]) .eyebrow {
+  color: #fb923c;
+}
+.game-page:has(progress[value="4"]) progress::-webkit-progress-value {
+  background: linear-gradient(90deg, #dc2626, #fb923c);
+}
+
+/* 5. ساحر الظلال (المرحلة 5): توهج بنفسجي غامض */
+.game-page:has(progress[value="5"]) {
+  border-color: #a855f7;
+  box-shadow:
+    0 12px 45px rgba(0, 0, 0, 0.75),
+    0 0 50px rgba(168, 85, 247, 0.4),
+    inset 0 0 35px rgba(88, 28, 135, 0.2);
+}
+.game-page:has(progress[value="5"]) .stage-heading,
+.game-page:has(progress[value="5"]) .eyebrow {
+  color: #c084fc;
+}
+.game-page:has(progress[value="5"]) progress::-webkit-progress-value {
+  background: linear-gradient(90deg, #581c87, #c084fc);
+}
+
+/* 6. ساحر الزمن وكبير السحرة (المرحلة 6): توهج ذهبي وبنفسجي ملكي */
+.game-page:has(progress[value="6"]) {
+  border-color: #fbbf24;
+  box-shadow:
+    0 12px 50px rgba(0, 0, 0, 0.7),
+    0 0 55px rgba(251, 191, 36, 0.38),
+    inset 0 0 30px rgba(251, 191, 36, 0.12);
+}
+.game-page:has(progress[value="6"]) .stage-heading,
+.game-page:has(progress[value="6"]) .eyebrow {
+  color: #fbbf24;
+}
+.game-page:has(progress[value="6"]) progress::-webkit-progress-value {
+  background: linear-gradient(90deg, #9333ea, #fbbf24, #fde68a);
+}
+/* =========================================================
+   📱 FULL MOBILE RESPONSIVENESS PATCH
+   ========================================================= */
+@media (max-width: 700px) {
+  /* 1. جعل إحصائيات اللغز تتناسب مع الشاشات الضيقة */
+  .case-facts {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    text-align: center;
+  }
+
+  /* 2. جعل إشعار الـ Toast يتوسط شاشة الموبايل ولا يخرج عن الحواف */
+  .hint-toast {
+    left: 16px;
+    right: 16px;
+    top: 16px;
+    justify-content: space-between;
+  }
+
+  /* 3. جعل أزرار طلب التلميح والإرسال تأخذ عرض الشاشة لسهولة اللمس */
+  .hint-panel button,
+  .answer-form button {
+    width: 100%;
+  }
+
+  /* 4. منع الـ Zoom التلقائي المزعج في أجهزة iPhone عند الكتابة */
+  .text-answer input {
+    font-size: 16px;
+  }
 }

@@ -237,8 +237,7 @@ function GameSession({ id }: { id: string }) {
               disabled={pending !== null || hintsRemaining === 0}
               isLoading={pending === "hint"}
             />
-            {hint && <HintBox hint={hint} />}
-          </section>
+{hint && <HintBox key={hint} hint={hint} />}</section>
         </>
       )}
     </main>
