@@ -10,9 +10,12 @@ import MysteryDetailsPage from "./pages/MysteryDetailsPage"
 import GamePage from "./pages/GamePage"
 import ResultPage from "./pages/ResultPage"
 import HintToast from "./components/HintToast"
+import MageSplash from "./components/MageSplash"
 export default function App() {
   return (
+    
     <>
+    {MageSplash()}
       <a className="skip-link" href="#main-content">
         Skip to content
       </a>
