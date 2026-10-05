@@ -54,11 +54,16 @@ function GameSession({ id }: { id: string }) {
     setIsLoading(true)
     setError("")
     setSelectedAnswer("")
-
-    async function load() {
+async function load() {
       try {
         const data = await getMysteryById(id)
         if (ignore) return
+
+        if (data.locked) {
+          navigate("/mysteries", { replace: true })
+          return
+        }
+
         if (data.solved) {
           navigate(`/result/${data.id}`, { replace: true })
           return

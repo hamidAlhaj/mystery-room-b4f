@@ -1,7 +1,15 @@
 import { mysteries, findMysteryById } from "../store.js";
 
+function isMysteryLocked(mystery) {
+  if (mystery.id === 1) return false;
+  const previousMystery = findMysteryById(mystery.id - 1);
+  return previousMystery ? !previousMystery.solved : false;
+}
+
 function toPublicMystery(mystery) {
-  const currentStage = mystery.solved ? null : mystery.stages[mystery.currentStage];
+  const locked = isMysteryLocked(mystery);
+  const currentStage =
+    mystery.solved || locked ? null : mystery.stages[mystery.currentStage];
 
   return {
     id: mystery.id,
@@ -11,12 +19,14 @@ function toPublicMystery(mystery) {
     totalStages: mystery.totalStages,
     currentStage: mystery.currentStage,
     solved: mystery.solved,
+    locked: locked,
     hintsUsed: mystery.hintsUsed,
     hintsRemaining: Math.max(0, 3 - mystery.hintsUsed),
     reveal: mystery.solved ? mystery.reveal : null,
     currentQuestion: currentStage ? currentStage.question : "",
     currentOptions: currentStage ? currentStage.options : [],
-    currentHint: currentStage && currentStage.hintRevealed ? currentStage.hint : "",
+    currentHint:
+      currentStage && currentStage.hintRevealed ? currentStage.hint : "",
   };
 }
 
@@ -43,6 +53,12 @@ export function submitAnswer(req, res) {
     return res.status(404).json({ error: `No mystery found with id ${id}.` });
   }
 
+  if (isMysteryLocked(mystery)) {
+    return res
+      .status(403)
+      .json({ error: "You must solve the previous mystery first!" });
+  }
+
   if (
     !req.body ||
     typeof req.body.answer !== "string" ||
@@ -51,7 +67,9 @@ export function submitAnswer(req, res) {
   ) {
     return res
       .status(400)
-      .json({ error: "Answer must be a non-empty string of at most 200 characters." });
+      .json({
+        error: "Answer must be a non-empty string of at most 200 characters.",
+      });
   }
 
   if (mystery.solved) {
@@ -92,12 +110,19 @@ export function submitAnswer(req, res) {
     nextStage: nextStage,
   });
 }
+
 export function requestHint(req, res) {
   const id = Number(req.params.id);
   const mystery = findMysteryById(id);
 
   if (!mystery) {
     return res.status(404).json({ error: `No mystery found with id ${id}.` });
+  }
+
+  if (isMysteryLocked(mystery)) {
+    return res
+      .status(403)
+      .json({ error: "You must solve the previous mystery first!" });
   }
 
   if (mystery.solved) {
@@ -116,7 +141,9 @@ export function requestHint(req, res) {
   }
 
   if (mystery.hintsUsed >= 3) {
-    return res.status(409).json({ error: "No hints remaining for this mystery." });
+    return res
+      .status(409)
+      .json({ error: "No hints remaining for this mystery." });
   }
 
   currentStage.hintRevealed = true;

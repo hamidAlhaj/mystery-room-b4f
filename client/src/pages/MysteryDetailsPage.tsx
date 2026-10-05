@@ -15,10 +15,12 @@ function MysteryDetails({ id }: { id: string }) {
     let ignore = false;
     setIsLoading(true);
     setError("");
-
-    async function load() {
+async function load() {
       try {
         const data = await getMysteryById(id);
+        if (data.locked) {
+          throw new Error("🔒 You must solve the first mystery first!");
+        }
         if (!ignore) setMystery(data);
       } catch (error) {
         if (!ignore) {
