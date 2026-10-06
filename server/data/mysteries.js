@@ -15,7 +15,7 @@ export const initialMysteries = [
       {
         id: 1,
         question:
-          'Level 1 — The Mage of Winds & Aether: "Welcome to the Peak of Storms! I am the Master of Winds... I move around you every moment, dancing with the trees and pushing great ships, yet you cannot see me. Answer my question to prove your mind is as swift and light as the air: I scream without a voice, and fly without wings. I bite in the winter cold without teeth, and whisper in your ear without lips. What am I?"',
+          'Level 1 — The Mage of Winds & Aether: "Welcome to the Mountain of Storms! I am the Master of Winds. I move around you all the time. I play with trees and push big ships, but you cannot see me. Answer my question to show you are smart and fast: I cry without a voice, and fly without wings. I bite in the cold winter without teeth, and whisper in your ear without lips. What am I?"',
         options: ["The Cloud", "The Wind", "The Echo", "The Lightning"],
         answer: ["The Wind", "wind"],
         hintsUsed: 0,
@@ -28,7 +28,7 @@ export const initialMysteries = [
       {
         id: 2,
         question:
-          'Level 2 — The Mage of the Abyssal Oceans: "You have crossed the winds, but can you dive into my depths? I am the Guardian of the Dark Oceans... where secrets sink never to return. Let us see if your mind floats or drowns: I have a large bed in which I lie, yet I never sleep. I have a wide mouth, yet I never speak. I run all day through mountains and valleys without a single foot, and in the end, I throw myself into the embrace of the sea. What am I?"',
+          'Level 2 — The Mage of the Abyssal Oceans: "You passed the winds, but can you swim in my deep water? I am the Guardian of the Dark Oceans. Let\'s see if you can win: I have a big bed, but I never sleep. I have a wide mouth, but I never speak. I run all day through mountains and valleys without feet. In the end, I go into the sea. What am I?"',
         options: ["The Wave", "The Ship", "The River", "The Whale"],
         answer: ["The River", "river"],
         hintsUsed: 0,
@@ -41,7 +41,7 @@ export const initialMysteries = [
       {
         id: 3,
         question:
-          'Level 3 — The Sorceress of Forests & Earth: "Your feet now tread upon my green kingdom. I am the Sorceress of the Earth and Ancient Roots. Everything here grows with patience and wisdom. Choose your answer carefully before the labyrinth swallows you: I wear hundreds of green coats in the summer, and as winter approaches, I take them off one by one without feeling cold. I breathe without lungs, and drink with my feet anchored deep in the dirt. What am I?"',
+          'Level 3 — The Sorceress of Forests & Earth: "Welcome to my green home. I am the Magic Queen of the Earth. Everything here grows slowly. Choose your answer carefully: I wear hundreds of green coats in the summer. In winter, I take them off one by one, but I don\'t feel cold. I breathe without lungs, and I drink water with my feet deep in the ground. What am I?"',
         options: ["The Tree", "The Turtle", "The Mountain", "The Chameleon"],
         answer: ["The Tree", "tree"],
         hintsUsed: 0,
@@ -69,7 +69,7 @@ export const initialMysteries = [
       {
         id: 1,
         question:
-          'Level 4 — The Mage of Fire & Ash: "The era of easy choices is over, traveler! I am the Mage of Inferno and Ash. From here on, luck will not save you; you must speak the truth yourself. Type your answer, if you dare: I am black when you buy me, glowing red when you use me, and white as ash when you throw me away. I am born from wood and I die by water. What am I?"',
+          'Level 4 — The Mage of Fire & Ash: "Easy choices are finished, traveler! I am the Master of Fire. Now, luck cannot help you. You must type the answer yourself: I am black when you buy me. I am red when you use me. I am white when you throw me away. I come from wood, and water kills me. What am I?"',
         options: [],
         answer: ["coal", "charcoal", "ember", "the coal", "the charcoal"],
         hintsUsed: 0,
@@ -82,7 +82,7 @@ export const initialMysteries = [
       {
         id: 2,
         question:
-          'Level 5 — The Mage of Shadows & Void: "Well done surviving the flames, but in my realm, no light guides your path. I am the Mage of Shadows... living between truth and illusion. Focus closely on my words, for the answer is closer to you than you think: I follow you everywhere you go under the sunlight, mimicking your every move in total silence. Yet, I flee from you and vanish completely the moment darkness falls or the lights go out. I have no weight, and you cannot touch me. What am I?"',
+          'Level 5 — The Mage of Shadows & Void: "Good job passing the fire. But here, there is no light. I am the Master of Shadows. Listen carefully, the answer is very close to you: I follow you everywhere in the sun. I copy everything you do quietly. But I run away and disappear when it gets dark. I have no weight, and you cannot touch me. What am I?"',
         options: [],
         answer: ["shadow", "my shadow", "your shadow", "a shadow", "the shadow"],
         hintsUsed: 0,
@@ -95,7 +95,7 @@ export const initialMysteries = [
       {
         id: 3,
         question:
-          'Level 6 (Final Boss) — The Mage of Time & Eternity: "You have reached the final threshold! I am the Guardian of Time and the Keys of Eternity. Five mages have fallen before your wisdom, leaving only my riddle, which has shattered the minds of thousands of kings and scholars before you. Answer, and the Gate of Eternal Knowledge shall open: I devour iron and rust it away, I gnaw on steel and destroy it, and I grind hard stones into dust. I slay kings, topple civilizations, and bring down towering mountains. Yet, you cannot stop me for a single second, and the harder you try to hold me, the faster I slip through your fingers. What am I?"',
+          'Level 6 (Final Boss) — The Mage of Time & Eternity: "You reached the end! I am the Guardian of Time. You defeated five masters. Now, answer my question to open the big gate: I eat iron and break steel. I turn hard stones into dust. I end kings and destroy big mountains. But, you cannot stop me for one second. If you try to catch me, I run away faster. What am I?"',
         options: [],
         answer: ["time", "eternity", "the time"],
         hintsUsed: 0,
