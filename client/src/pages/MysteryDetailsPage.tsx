@@ -15,7 +15,7 @@ function MysteryDetails({ id }: { id: string }) {
     let ignore = false;
     setIsLoading(true);
     setError("");
-async function load() {
+    async function load() {
       try {
         const data = await getMysteryById(id);
         if (data.locked) {
@@ -59,14 +59,10 @@ async function load() {
           <p className="eyebrow">
             Case file / {String(mystery.id).padStart(3, "0")}
           </p>
-          <h1 lang="ar" dir="auto">
-            {mystery.title}
-          </h1>
+          <h1>{mystery.title}</h1>
           <div className="story-panel">
             <span className="eyebrow">The story so far</span>
-            <p lang="ar" dir="auto">
-              {mystery.intro}
-            </p>
+            <p>{mystery.intro}</p>
           </div>
           <div className="case-facts">
             <p>

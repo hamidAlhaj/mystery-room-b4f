@@ -25,12 +25,10 @@ export default function ResultCard({
       <h1>
         Mystery <em>solved!</em>
       </h1>
-      <h2 lang="ar" dir="auto">
-        {title}
-      </h2>
+      <h2>{title}</h2>
       <section className="reveal-panel" aria-labelledby="reveal-title">
         <h2 id="reveal-title">The truth behind the mystery</h2>
-        <p lang="ar" dir="rtl">
+        <p>
           {reveal}
         </p>
       </section>

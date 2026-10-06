@@ -34,9 +34,7 @@ export default function MysteryCard({
         <h2 dir="auto">
           <Link to={`/mysteries/${id}`}>{title}</Link>
         </h2>
-        <p className="case-description" lang="ar" dir="auto">
-          {description}
-        </p>
+        <p className="case-description">{description}</p>
         <div className="case-actions">
           <span>{stages} stages to uncover</span>
           <Link className="button" to={`/mysteries/${id}`}>

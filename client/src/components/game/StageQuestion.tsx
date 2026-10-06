@@ -3,11 +3,7 @@ interface StageQuestionProps {
 }
 
 function StageQuestion({ question }: StageQuestionProps) {
-  return (
-    <legend lang="ar" dir="auto">
-      {question}
-    </legend>
-  );
+  return <legend>{question}</legend>;
 }
 
 export default StageQuestion;

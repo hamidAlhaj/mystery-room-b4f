@@ -4,7 +4,7 @@ interface HintBoxProps {
 
 function HintBox({ hint }: HintBoxProps) {
   return (
-    <p className="hint-text" lang="ar" dir="auto" role="status">
+    <p className="hint-text" role="status">
       {hint}
     </p>
   );
