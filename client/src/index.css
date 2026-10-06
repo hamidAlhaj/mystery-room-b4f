@@ -160,8 +160,7 @@ em {
   max-width: 1280px;
   width: calc(100% - 96px);
   margin: auto;
-  padding: 27px 0;
-  border-bottom: 1px solid var(--line);
+  padding: calc(27px + env(safe-area-inset-top)) 0 27px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -822,11 +821,16 @@ main > .feedback-wrong {
   main {
     width: calc(100% - 40px);
   }
+
   .site-header {
-    padding: 20px 0;
+    /* 1. حل مشكلة الآيفون: إضافة مسافة آمنة علوية */
+    padding: calc(20px + env(safe-area-inset-top)) 0 20px;
     gap: 12px;
     flex-wrap: wrap;
+    /* 2. جعل النافبار هو المرجع لمكان النافذة المنبثقة بدلاً من الزر */
+    position: relative;
   }
+
   .brand {
     font-size: 20px;
   }
@@ -902,10 +906,24 @@ main > .feedback-wrong {
   .stage-heading .muted {
     display: none;
   }
-  .play-guide-panel {
-    right: 0;
-    left: auto;
+
+  /* 3. فك ارتباط النافذة بالزر لتأخذ حريتها في شاشة الموبايل */
+  .play-guide {
+    position: static;
   }
+
+  /* 4. توسيط النافذة المنبثقة بشكل مثالي داخل شاشة الموبايل */
+  .play-guide-panel {
+    position: absolute;
+    top: 100%; /* تظهر أسفل النافبار مباشرة */
+    left: 16px; /* هامش أيسر آمن */
+    right: 16px; /* هامش أيمن آمن */
+    width: auto;
+    max-width: none;
+    margin-top: 10px;
+    z-index: 100;
+  }
+
   .hint-panel {
     align-items: flex-start;
   }
