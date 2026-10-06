@@ -5,12 +5,27 @@ import MysteryCard from "../components/MysteryCard";
 import EmptyState from "../components/EmptyState";
 import { getMysteries } from "../api";
 import type { Mystery } from "../types";
+import { useLocation } from "react-router-dom";
 
 function MysteriesPage() {
+  const { key: navigationKey } = useLocation();
   const [mysteries, setMysteries] = useState<Mystery[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
   const [reload, setReload] = useState(0);
+
+  useEffect(() => {
+    const refresh = () => setReload((value) => value + 1);
+    const onVisible = () => {
+      if (document.visibilityState === "visible") refresh();
+    };
+    window.addEventListener("focus", refresh);
+    document.addEventListener("visibilitychange", onVisible);
+    return () => {
+      window.removeEventListener("focus", refresh);
+      document.removeEventListener("visibilitychange", onVisible);
+    };
+  }, []);
 
   useEffect(() => {
     let ignore = false;
@@ -38,7 +53,7 @@ function MysteriesPage() {
     return () => {
       ignore = true;
     };
-  }, [reload]);
+  }, [reload, navigationKey]);
 
   return (
     <main className="mysteries-page">
@@ -87,6 +102,7 @@ function MysteriesPage() {
                   description={mystery.intro}
                   stages={mystery.totalStages}
                   solved={mystery.solved}
+                  locked={mystery.locked}
                 />
               </li>
             ))}

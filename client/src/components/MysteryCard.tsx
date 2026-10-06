@@ -1,10 +1,12 @@
 import { Link } from "react-router-dom";
+import { Lock } from "lucide-react";
 interface MysteryCardProps {
   id: number;
   title: string;
   description: string;
   stages: number;
   solved: boolean;
+  locked: boolean;
 }
 export default function MysteryCard({
   id,
@@ -12,6 +14,7 @@ export default function MysteryCard({
   description,
   stages,
   solved,
+  locked,
 }: MysteryCardProps) {
   return (
     <article className="case-card mystery-card">
@@ -27,19 +30,24 @@ export default function MysteryCard({
       <div className="case-content">
         <div className="case-meta">
           <span className="eyebrow">An investigation</span>
-          <span className={`status-badge ${solved ? "is-solved" : ""}`}>
-            {solved ? "✓ Solved" : "Open case"}
+          <span className={`status-badge ${!locked && solved ? "is-solved" : ""}`}>
+            {locked ? "Locked" : solved ? "✓ Solved" : "Open case"}
           </span>
         </div>
         <h2 dir="auto">
-          <Link to={`/mysteries/${id}`}>{title}</Link>
+          {locked ? title : <Link to={`/mysteries/${id}`}>{title}</Link>}
         </h2>
         <p className="case-description">{description}</p>
+        {locked && <p className="case-lock-reason" id={`lock-reason-${id}`}>Complete Phase 1 to unlock.</p>}
         <div className="case-actions">
           <span>{stages} stages to uncover</span>
-          <Link className="button" to={`/mysteries/${id}`}>
+          {locked ? (
+            <button className="case-locked-button" type="button" disabled aria-describedby={`lock-reason-${id}`}>
+              <Lock size={16} aria-hidden="true" /> Locked
+            </button>
+          ) : <Link className="button" to={`/mysteries/${id}`}>
             Open case <span aria-hidden="true">↗</span>
-          </Link>
+          </Link>}
         </div>
       </div>
     </article>

@@ -6,6 +6,9 @@
 
 :root {
   color-scheme: dark;
+  --badge-text: #e9d5ff;
+  --badge-background: #321451;
+  --solved-background: #103b32;
   --ink: #090414; /* خلفية ليلية بنفسجية عميقة جداً */
   --panel: #140a26; /* خلفية الكروت والألواح السحرية */
   --raised: #1f1038; /* العناصر المرتفعة والقوائم */
@@ -88,7 +91,7 @@ button,
     transform 180ms;
 }
 button:hover:not(:disabled),
-.button:hover {
+.button:hover:not(:disabled) {
   background: linear-gradient(135deg, #9333ea 0%, #5b21b6 100%);
   border-color: var(--brass);
   color: #ffffff;
@@ -462,6 +465,7 @@ main > .eyebrow {
 }
 .case-meta {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   gap: 15px;
@@ -469,16 +473,16 @@ main > .eyebrow {
 }
 .status-badge {
   border: 1px solid #9333ea;
-  background: rgba(147, 51, 234, 0.15);
+  background: var(--badge-background);
   border-radius: 30px;
   padding: 3px 11px;
   font-size: 10px;
-  color: #e9d5ff;
+  color: var(--badge-text);
   white-space: nowrap;
 }
 .status-badge.is-solved {
   border-color: #059669;
-  background: rgba(16, 185, 129, 0.15);
+  background: var(--solved-background);
   color: var(--green);
 }
 .case-content h2 {
@@ -501,6 +505,17 @@ main > .eyebrow {
 .case-actions > span {
   color: var(--muted);
   font-size: 12px;
+}
+.case-locked-button:disabled {
+  opacity: 1;
+  background: var(--badge-background);
+  color: var(--badge-text);
+  border-color: var(--line);
+}
+.case-lock-reason {
+  margin-bottom: 20px;
+  color: var(--muted);
+  font-size: 14px;
 }
 
 /* ---------- Story and results ---------- */
@@ -1008,6 +1023,9 @@ main > .feedback-wrong {
    ========================================================= */
 :root[data-theme="light"] {
   color-scheme: light;
+  --badge-text: #581c87;
+  --badge-background: #ede0fa;
+  --solved-background: #d9f3e8;
   --ink: #efe8f8;
   --panel: #f9f5ff;
   --raised: #e3d6f4;

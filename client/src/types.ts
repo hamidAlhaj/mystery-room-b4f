@@ -6,7 +6,7 @@ export interface Mystery {
   totalStages: number;
   currentStage: number;
   solved: boolean;
-  locked?: boolean 
+  locked: boolean;
   currentHint?: string
   hintsUsed: number;
   hintsRemaining: number;
