@@ -1,4 +1,5 @@
 import LoadingMessage from "../components/LoadingMessage";
+import LockedMystery from "../components/LockedMystery";
 import ErrorMessage from "../components/ErrorMessage";
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
@@ -18,9 +19,6 @@ function MysteryDetails({ id }: { id: string }) {
     async function load() {
       try {
         const data = await getMysteryById(id);
-        if (data.locked) {
-          throw new Error("🔒 You must solve the first mystery first!");
-        }
         if (!ignore) setMystery(data);
       } catch (error) {
         if (!ignore) {
@@ -54,7 +52,8 @@ function MysteryDetails({ id }: { id: string }) {
           title="Unable to open this mystery"
         />
       )}
-      {!isLoading && !error && mystery && (
+      {!isLoading && !error && mystery?.locked && <LockedMystery />}
+      {!isLoading && !error && mystery && !mystery.locked && (
         <>
           <p className="eyebrow">
             Case file / {String(mystery.id).padStart(3, "0")}

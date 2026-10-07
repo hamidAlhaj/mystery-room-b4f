@@ -1,6 +1,7 @@
 /** @format */
 
 import LoadingMessage from "../components/LoadingMessage"
+import LockedMystery from "../components/LockedMystery"
 import ErrorMessage from "../components/ErrorMessage"
 import ProgressBar from "../components/ProgressBar"
 import GameStatus from "../components/game/GameStatus"
@@ -60,7 +61,7 @@ function GameSession({ id }: { id: string }) {
         if (ignore) return
 
         if (data.locked) {
-          navigate("/mysteries", { replace: true })
+          setMystery(data)
           return
         }
 
@@ -101,7 +102,7 @@ function GameSession({ id }: { id: string }) {
       busy.current ||
       isLoading ||
       error ||
-      !mystery
+      !mystery || mystery.locked
     )
       return
     busy.current = true
@@ -132,7 +133,7 @@ function GameSession({ id }: { id: string }) {
     }
   }
   async function handleHint() {
-    if (busy.current || isLoading || error || !mystery) return
+    if (busy.current || isLoading || error || !mystery || mystery.locked) return
     if (hintsRemaining === 0) return
 
     busy.current = true
@@ -188,7 +189,8 @@ function GameSession({ id }: { id: string }) {
           <Link to="/mysteries">Back to mysteries</Link>
         </ErrorMessage>
       )}
-      {!isLoading && !error && mystery && (
+      {!isLoading && !error && mystery?.locked && <LockedMystery />}
+      {!isLoading && !error && mystery && !mystery.locked && (
         <>
           <StageHeader title={mystery.title} caseId={mystery.id} />
           <StageProgress

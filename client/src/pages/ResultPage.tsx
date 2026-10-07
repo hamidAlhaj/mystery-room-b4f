@@ -1,4 +1,5 @@
 import ResultCard from "../components/game/ResultCard";
+import LockedMystery from "../components/LockedMystery";
 import LoadingMessage from "../components/LoadingMessage";
 import ErrorMessage from "../components/ErrorMessage";
 import { useEffect, useState } from "react";
@@ -56,7 +57,7 @@ function MysteryResult({ id }: { id: string }) {
       {!isLoading &&
         !error &&
         mystery &&
-        (mystery.solved ? (
+        (mystery.locked ? <LockedMystery /> : mystery.solved ? (
           <ResultCard
             id={mystery.id}
             title={mystery.title}
